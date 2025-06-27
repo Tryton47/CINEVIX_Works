@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CINEVIX - House Production</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cinevix: {
+                dark: "#081428", // Warna navy lebih gelap
+                orange: "#ff6b00",
+                gray: "#1e2a45",
+                light: "#e0e0e0",
+                navy: "#081428",
+                darkgray: "#0d1a30",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #081428;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ff6b00;
+        border-radius: 6px;
+        border: 3px solid #081428;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #e05a00;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #081428; /* Warna navy lebih gelap */
+        color: #e0e0e0;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+      .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 3rem;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background: #ff6b00;
+        bottom: -10px;
+        left: 0;
+      }
+      .portfolio-item {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .portfolio-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+      }
+      .product-card {
+        transition: all 0.3s ease;
+        border: 1px solid #1e2a45;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        border-color: #ff6b00;
+      }
+      .btn-orange {
+        background: #ff6b00;
+        transition: all 0.3s ease;
+      }
+      .btn-orange:hover {
+        background: #e05a00;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
+      }
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: #ff6b00;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .contact-input {
+        background: #0d1a30;
+        border: 1px solid #1e2a45;
+        color: #e0e0e0;
+        transition: all 0.3s ease;
+      }
+      .contact-input:focus {
+        border-color: #ff6b00;
+        box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+      }
+      .social-icon {
+        transition: all 0.3s ease;
+      }
+      .social-icon:hover {
+        transform: translateY(-5px);
+        color: #ff6b00;
+      }
+      .team-card {
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+      }
+      .team-card:hover {
+        transform: translateY(-10px);
+        border-color: #ff6b00;
+        box-shadow: 0 15px 30px rgba(255, 107, 0, 0.2);
+      }
+      .marquee-container {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+      }
+      .marquee {
+        display: flex;
+        animation: marquee 20s linear infinite;
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+      .marquee-item {
+        flex-shrink: 0;
+        margin: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .filter-btn {
+        transition: all 0.3s ease;
+      }
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: #ff6b00;
+        color: white;
+      }
+      .work-card {
+        transition: all 0.4s ease;
+        transform-origin: center;
+      }
+      .work-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+      }
+      .work-modal {
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        opacity: 0;
+        transform: scale(0.8);
+        pointer-events: none;
+      }
+      .work-modal.active {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: all;
+      }
+      .modal-overlay {
+        background: rgba(8, 20, 40, 0.95);
+      }
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+      .logo-text {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 1.8rem;
+        background: linear-gradient(to right, #ff6b00, #ff9e00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.5px;
+      }
+      .navy-gradient {
+        background: linear-gradient(to bottom, #081428, #0a1c38);
+      }
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+      .nav-item {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .nav-item.active {
+        color: #ff6b00;
+      }
+      .nav-item:hover {
+        color: #ff6b00;
+      }
+      .page-section {
+        min-height: calc(100vh - 80px);
+        padding-top: 100px;
+        padding-bottom: 80px;
+      }
+    </style>
+  </head>
+  <body class="bg-cinevix-navy text-cinevix-light">
+    <!-- Header & Navigation -->
+    <header class="fixed w-full z-50 bg-cinevix-navy/95 backdrop-blur-sm py-4 border-b border-cinevix-gray">
+      <div class="container mx-auto px-4 flex justify-between items-center">
+        <div class="flex items-center">
+          <div class="logo-container cursor-pointer" onclick="showPage('home')">
+            <img src="img/logo.png" alt="" class="home-profile" />
+            <div class="href src"></div>
+          </div>
+        </div>
+        <nav class="hidden md:block">
+          <ul class="flex space-x-8">
+            <li><span class="nav-item font-medium active" data-page="home">Beranda</span></li>
+            <li><span class="nav-item font-medium" data-page="team">Team</span></li>
+            <li><span class="nav-item font-medium" data-page="works">Works</span></li>
+          </ul>
+        </nav>
+        <button class="md:hidden text-cinevix-orange" id="mobile-menu-btn">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="hidden md:hidden bg-cinevix-navy py-4 px-4 absolute top-full left-0 w-full" id="mobile-menu">
+        <ul class="space-y-4">
+          <li><span class="block py-2 text-white font-medium nav-item active" data-page="home">Beranda</span></li>
+          <li><span class="block py-2 font-medium nav-item" data-page="team">Team</span></li>
+          <li><span class="block py-2 font-medium nav-item" data-page="works">Works</span></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+      <!-- Hero Section -->
+      <section class="pt-32 pb-20 navy-gradient page-section">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-12 md:mb-0">
+            <h2 class="text-5xl md:text-6xl font-bold leading-tight mb-4">
+              <span class="text-white">Mencipta</span> <span class="text-cinevix-orange">Visual</span><br />
+              <span class="text-white">yang</span> <span class="text-cinevix-orange">Mengesankan</span>
+            </h2>
+            <p class="text-xl mb-8 max-w-lg">CINEVIX adalah rumah produksi profesional yang mengkhususkan diri dalam pembuatan konten visual berkualitas tinggi untuk berbagai kebutuhan kreatif.</p>
+            <div class="flex flex-wrap gap-4">
+              <a href="#contact" class="btn-orange text-white font-bold py-3 px-8 rounded-full inline-block"> Hubungi Kami </a>
+            </div>
+          </div>
+          <div class="md:w-1/2 relative">
+            <div class="relative">
+              <div class="absolute inset-0 bg-gradient-to-r from-cinevix-orange/20 to-transparent rounded-xl transform rotate-6"></div>
+              <div class="relative rounded-xl overflow-hidden h-96">
+                <!-- Video Background Fullscreen in Container -->
+                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+                  <source src="img/home-video.mp4" type="video/mp4" />
+                  Browser Anda tidak mendukung pemutaran video.
+                </video>
+
+                <!-- Overlay with Text & Icon -->
+                <div class="relative z-10 w-full h-full flex items-center justify-center bg-cinevix-navy/60">
+                  <div class="text-center p-8">
+                    <div class="text-6xl text-cinevix-orange mb-4">
+                      <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">Produksi Visual Berkualitas</h3>
+                    <p class="mt-2">Dari konsep hingga eksekusi</p>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="py-20 bg-cinevix-gray/10 page-section">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Tentang CINEVIX</h2>
+          </div>
+          <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="md:w-1/2">
+              <div class="bg-gradient-to-br from-cinevix-orange/10 to-transparent p-8 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4 text-white">Visi Kami</h3>
+                <p class="mb-6">Menjadi rumah produksi terdepan yang menghadirkan solusi kreatif inovatif melalui visual storytelling yang memukau dan berdampak.</p>
+                <h3 class="text-2xl font-bold mb-4 text-white">Misi Kami</h3>
+                <p>Memberikan layanan produksi berkualitas tinggi dengan pendekatan kreatif yang unik, teknologi terkini, dan tim profesional yang berdedikasi untuk memenuhi kebutuhan visual klien kami.</p>
+              </div>
+            </div>
+            <div class="md:w-1/2">
+              <h3 class="text-2xl font-bold mb-6 text-white">Mengapa Memilih Kami?</h3>
+              <div class="space-y-6">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-10 h-10 rounded-full bg-cinevix-orange flex items-center justify-center">
+                      <i class="fas fa-video text-white"></i>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="text-xl font-bold text-white">Produksi Profesional</h4>
+                    <p>Perangkat produksi canggih dan tim ahli dengan pengalaman di industri kreatif.</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-10 h-10 rounded-full bg-cinevix-orange flex items-center justify-center">
+                      <i class="fas fa-lightbulb text-white"></i>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="text-xl font-bold text-white">Kreativitas Tanpa Batas</h4>
+                    <p>Konsep unik dan inovatif untuk setiap proyek yang kami kerjakan.</p>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 mt-1">
+                    <div class="w-10 h-10 rounded-full bg-cinevix-orange flex items-center justify-center">
+                      <i class="fas fa-handshake text-white"></i>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <h4 class="text-xl font-bold text-white">Kerjasama yang Solid</h4>
+                    <p>Komitmen pada kepuasan klien dan komunikasi yang transparan selama proses produksi.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Products Section -->
+      <section id="products" class="py-20 navy-gradient page-section">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Produk Kami</h2>
+            <p class="mt-4 max-w-2xl mx-auto">Layanan profesional untuk semua kebutuhan produksi visual Anda</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Product 1 -->
+            <div class="product-card bg-cinevix-gray rounded-xl p-6">
+              <div class="w-14 h-14 rounded-full bg-cinevix-orange flex items-center justify-center mb-6">
+                <i class="fas fa-film text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3">Produksi Film</h3>
+              <p class="mb-4">Layanan produksi film lengkap dari konsep hingga distribusi, termasuk film pendek, fitur, dan dokumenter.</p>
+              <a href="#" class="text-cinevix-orange font-medium inline-flex items-center"> Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2 text-sm"></i> </a>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card bg-cinevix-gray rounded-xl p-6">
+              <div class="w-14 h-14 rounded-full bg-cinevix-orange flex items-center justify-center mb-6">
+                <i class="fas fa-tv text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3">Iklan TV & Digital</h3>
+              <p class="mb-4">Produksi iklan kreatif untuk televisi dan platform digital dengan pendekatan yang efektif dan menarik.</p>
+              <a href="#" class="text-cinevix-orange font-medium inline-flex items-center"> Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2 text-sm"></i> </a>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card bg-cinevix-gray rounded-xl p-6">
+              <div class="w-14 h-14 rounded-full bg-cinevix-orange flex items-center justify-center mb-6">
+                <i class="fas fa-music text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3">Video Musik</h3>
+              <p class="mb-4">Produksi video musik dengan konsep kreatif yang memperkuat pesan lagu dan identitas artis.</p>
+              <a href="#" class="text-cinevix-orange font-medium inline-flex items-center"> Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2 text-sm"></i> </a>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card bg-cinevix-gray rounded-xl p-6">
+              <div class="w-14 h-14 rounded-full bg-cinevix-orange flex items-center justify-center mb-6">
+                <i class="fas fa-dollar text-white text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3">Video Korporat</h3>
+              <p class="mb-4">Produksi video untuk kebutuhan perusahaan, profil perusahaan, pelatihan, dan presentasi.</p>
+              <a href="#" class="text-cinevix-orange font-medium inline-flex items-center"> Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2 text-sm"></i> </a>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card bg-cinevix-gray rounded-xl p-6">
+              <div class="w-14 h-14 rounded-full bg-cinevix-orange flex items-center justify-center mb-6">
+                <i class="fas fa-vr-cardboard text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3">Konten Digital</h3>
+              <p class="mb-4">Produksi konten untuk media sosial, YouTube, dan platform digital lainnya dengan pendekatan viral.</p>
+              <a href="#" class="text-cinevix-orange font-medium inline-flex items-center"> Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2 text-sm"></i> </a>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card bg-cinevix-gray rounded-xl p-6">
+              <div class="w-14 h-14 rounded-full bg-cinevix-orange flex items-center justify-center mb-6">
+                <i class="fas fa-photo-video text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3">Pasca Produksi</h3>
+              <p class="mb-4">Editing profesional, color grading, visual effects, dan audio mastering untuk hasil akhir sempurna.</p>
+              <a href="#" class="text-cinevix-orange font-medium inline-flex items-center"> Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2 text-sm"></i> </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio Preview Section -->
+      <section id="portfolio-preview" class="py-20 bg-cinevix-gray/10 page-section">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Portofolio Unggulan</h2>
+            <p class="mt-4 max-w-2xl mx-auto">Beberapa karya terbaik yang telah kami produksi</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Portfolio 1 -->
+            <div class="portfolio-item rounded-xl overflow-hidden">
+              <div class="bg-gradient-to-b from-cinevix-orange/10 to-transparent p-1 rounded-xl">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-64 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-4xl text-cinevix-orange mb-4">
+                      <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Film Pendek</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6 bg-cinevix-gray">
+                <h3 class="text-xl font-bold text-white mb-2">Judul Film Pendek</h3>
+                <p class="text-cinevix-orange mb-3">Genre: Drama</p>
+                <p>Film pendek yang mengisahkan tentang perjuangan seorang seniman jalanan di kota metropolitan.</p>
+              </div>
+            </div>
+
+            <!-- Portfolio 2 -->
+            <div class="portfolio-item rounded-xl overflow-hidden">
+              <div class="bg-gradient-to-b from-cinevix-orange/10 to-transparent p-1 rounded-xl">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-64 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-4xl text-cinevix-orange mb-4">
+                      <i class="fas fa-ad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Iklan Digital</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6 bg-cinevix-gray">
+                <h3 class="text-xl font-bold text-white mb-2">Kampanye Merek Minuman</h3>
+                <p class="text-cinevix-orange mb-3">Kategori: Iklan Digital</p>
+                <p>Kampanye iklan digital untuk produk minuman energi dengan pendekatan gaya hidup anak muda.</p>
+              </div>
+            </div>
+
+            <!-- Portfolio 3 -->
+            <div class="portfolio-item rounded-xl overflow-hidden">
+              <div class="bg-gradient-to-b from-cinevix-orange/10 to-transparent p-1 rounded-xl">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-64 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-4xl text-cinevix-orange mb-4">
+                      <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Video Musik</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6 bg-cinevix-gray">
+                <h3 class="text-xl font-bold text-white mb-2">Video Musik "Harmoni"</h3>
+                <p class="text-cinevix-orange mb-3">Artis: Band Lokal</p>
+                <p>Video musik dengan konsep visual futuristik untuk band indie populer dengan animasi CGI.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-12">
+            <span class="nav-item btn-orange text-white font-bold py-3 px-8 rounded-full inline-flex items-center cursor-pointer" data-page="works"> Lihat Semua Karya <i class="fas fa-arrow-right ml-2"></i> </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Preview Section -->
+      <section id="team-preview" class="py-20 navy-gradient page-section">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Tim Kreatif Kami</h2>
+            <p class="mt-4 max-w-2xl mx-auto">Kenali tim ahli di balik kesuksesan setiap proyek CINEVIX</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Team Member 1 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-64 flex items-center justify-center">
+                  <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-3xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Rizky Pratama</h3>
+                    <p class="text-cinevix-orange">Director & Founder</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-64 flex items-center justify-center">
+                  <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-3xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Siti Rahayu</h3>
+                    <p class="text-cinevix-orange">Creative Director</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-64 flex items-center justify-center">
+                  <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-3xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Budi Santoso</h3>
+                    <p class="text-cinevix-orange">Cinematographer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-64 flex items-center justify-center">
+                  <div class="text-center">
+                    <div class="w-24 h-24 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-3xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Dewi Anggraeni</h3>
+                    <p class="text-cinevix-orange">Editor & VFX Artist</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-12">
+            <span class="nav-item btn-orange text-white font-bold py-3 px-8 rounded-full inline-flex items-center cursor-pointer" data-page="team"> Lihat Selengkapnya <i class="fas fa-arrow-right ml-2"></i> </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partners Section -->
+      <section id="partners" class="py-20 bg-cinevix-gray/10">
+        <div class="container mx-auto px-200">
+          <div class="text-center mb-15">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Klien & Kerjasama</h2>
+            <p class="mt-4 max-w-2xl mx-auto">Beberapa perusahaan yang telah mempercayai layanan kami</p>
+          </div>
+
+          <div class="marquee-container py-6">
+            <div class="marquee">
+              <!-- Repeat items for seamless looping -->
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">NET TV</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Scane Plus</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Warior</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Adidas</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Tokopedia</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Gacoan</span>
+                </div>
+              </div>
+              <!-- Duplicate for seamless looping -->
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Axist</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">IDFC</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">DJI</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Otsuka</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Nestle</span>
+                </div>
+              </div>
+              <div class="marquee-item">
+                <div class="bg-cinevix-gray w-40 h-20 rounded-xl flex items-center justify-center">
+                  <span class="text-xl font-bold text-cinevix-orange">Cakrabuana</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-20 navy-gradient page-section">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Hubungi Kami</h2>
+            <p class="mt-4 max-w-2xl mx-auto">Kami siap membantu mewujudkan visi kreatif Anda</p>
+          </div>
+
+          <div class="flex flex-col lg:flex-row gap-12">
+            <div class="lg:w-1/2">
+              <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block mb-2">Nama Lengkap</label>
+                    <input type="text" class="contact-input w-full py-3 px-4 rounded-lg" />
+                  </div>
+                  <div>
+                    <label class="block mb-2">Email</label>
+                    <input type="email" class="contact-input w-full py-3 px-4 rounded-lg" />
+                  </div>
+                </div>
+                <div>
+                  <label class="block mb-2">Subjek</label>
+                  <input type="text" class="contact-input w-full py-3 px-4 rounded-lg" />
+                </div>
+                <div>
+                  <label class="block mb-2">Pesan</label>
+                  <textarea class="contact-input w-full py-3 px-4 rounded-lg h-40"></textarea>
+                </div>
+                <button type="submit" class="btn-orange text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto">Kirim Pesan</button>
+              </form>
+            </div>
+
+            <div class="lg:w-1/2">
+              <div class="bg-cinevix-gray rounded-xl p-8 h-full">
+                <h3 class="text-2xl font-bold text-white mb-6">Informasi Kontak</h3>
+
+                <div class="space-y-6">
+                  <div class="flex items-start">
+                    <div class="flex-shrink-0 mt-1">
+                      <div class="w-12 h-12 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                        <i class="fas fa-map-marker-alt text-cinevix-orange"></i>
+                      </div>
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="text-lg font-bold text-white">Alamat</h4>
+                      <p>Jl. Soekarno-Hatta No.99, Malang, Indonesia</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div class="flex-shrink-0 mt-1">
+                      <div class="w-12 h-12 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                        <i class="fas fa-phone-alt text-cinevix-orange"></i>
+                      </div>
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="text-lg font-bold text-white">Telepon</h4>
+                      <p>+62 21 1234 5678</p>
+                      <p>+62 812 3456 7890</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div class="flex-shrink-0 mt-1">
+                      <div class="w-12 h-12 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                        <i class="fas fa-envelope text-cinevix-orange"></i>
+                      </div>
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="text-lg font-bold text-white">Email</h4>
+                      <p>hello@cinevixworks.com</p>
+                      <p>produksi@cinevix.com</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <div class="flex-shrink-0 mt-1">
+                      <div class="w-12 h-12 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                        <i class="fas fa-clock text-cinevix-orange"></i>
+                      </div>
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="text-lg font-bold text-white">Jam Operasional</h4>
+                      <p>Senin - Jumat: 09:00 - 17:00</p>
+                      <p>Sabtu: 10:00 - 15:00</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-10">
+                  <h4 class="text-lg font-bold text-white mb-4">Ikuti Kami</h4>
+                  <div class="flex space-x-4">
+                    <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                      <i class="fab fa-instagram text-cinevix-orange"></i>
+                    </a>
+                    <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                      <i class="fab fa-youtube text-cinevix-orange"></i>
+                    </a>
+                    <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                      <i class="fab fa-facebook-f text-cinevix-orange"></i>
+                    </a>
+                    <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                      <i class="fab fa-linkedin-in text-cinevix-orange"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Team Page -->
+    <div id="team" class="page">
+      <section class="pt-32 pb-20 navy-gradient page-section">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Tim Kreatif CINEVIX</h2>
+            <p class="mt-4 max-w-2xl mx-auto">Para ahli di balik kesuksesan setiap proyek kami</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Team Member 1 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-72 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="w-32 h-32 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-4xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Rizky Pratama</h3>
+                    <p class="text-cinevix-orange mb-3">Director & Founder</p>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm mb-4">Ahli berpengalaman lebih dari 10 tahun di industri film dan produksi video. Spesialisasi dalam penyutradaraan dan pengembangan konsep.</p>
+                <div class="mt-4 flex space-x-3 justify-center">
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-instagram text-cinevix-orange"></i>
+                  </a>
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-linkedin-in text-cinevix-orange"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-72 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="w-32 h-32 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-4xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Siti Rahayu</h3>
+                    <p class="text-cinevix-orange mb-3">Creative Director</p>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm mb-4">Spesialis konsep kreatif dan visual storytelling dengan latar belakang desain grafis. Memiliki kemampuan luar biasa dalam menciptakan narasi visual yang kuat.</p>
+                <div class="mt-4 flex space-x-3 justify-center">
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-instagram text-cinevix-orange"></i>
+                  </a>
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-linkedin-in text-cinevix-orange"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-72 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="w-32 h-32 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-4xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Budi Santoso</h3>
+                    <p class="text-cinevix-orange mb-3">Director of Photography</p>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm mb-4">Ahli sinematografi dengan spesialisasi lighting dan komposisi visual. Memiliki mata yang tajam untuk menangkap momen-momen emosional yang kuat.</p>
+                <div class="mt-4 flex space-x-3 justify-center">
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-instagram text-cinevix-orange"></i>
+                  </a>
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-twitter text-cinevix-orange"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="team-card bg-cinevix-gray rounded-xl overflow-hidden">
+              <div class="p-1 bg-gradient-to-b from-cinevix-orange/20 to-transparent">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-72 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="w-32 h-32 rounded-full bg-cinevix-gray mx-auto mb-4 flex items-center justify-center text-4xl text-cinevix-orange">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Dewi Anggraeni</h3>
+                    <p class="text-cinevix-orange mb-3">Post-Production Supervisor</p>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <p class="text-sm mb-4">Spesialis editing, color grading, dan visual effects dengan pengalaman 8 tahun. Menguasai berbagai software pasca produksi tingkat profesional.</p>
+                <div class="mt-4 flex space-x-3 justify-center">
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-instagram text-cinevix-orange"></i>
+                  </a>
+                  <a href="#" class="social-icon w-10 h-10 rounded-full bg-cinevix-orange/20 flex items-center justify-center">
+                    <i class="fab fa-youtube text-cinevix-orange"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-16 text-center">
+            <span class="nav-item btn-orange text-white font-bold py-3 px-8 rounded-full inline-flex items-center cursor-pointer" data-page="home"> <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda </span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Works Page -->
+    <div id="works" class="page">
+      <section class="pt-32 pb-20 bg-cinevix-gray/10 page-section">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="section-title text-4xl font-bold text-white inline-block">Karya CINEVIX</h2>
+            <p class="mt-4 max-w-2xl mx-auto">Portofolio lengkap dari berbagai proyek yang telah kami selesaikan</p>
+          </div>
+
+          <!-- Filter Buttons -->
+          <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <button class="filter-btn border border-cinevix-orange text-cinevix-orange font-medium py-2 px-6 rounded-full active" data-filter="all">Semua Karya</button>
+            <button class="filter-btn border border-cinevix-orange text-cinevix-orange font-medium py-2 px-6 rounded-full" data-filter="film">Film</button>
+            <button class="filter-btn border border-cinevix-orange text-cinevix-orange font-medium py-2 px-6 rounded-full" data-filter="iklan">Iklan</button>
+            <button class="filter-btn border border-cinevix-orange text-cinevix-orange font-medium py-2 px-6 rounded-full" data-filter="music">Video Musik</button>
+            <button class="filter-btn border border-cinevix-orange text-cinevix-orange font-medium py-2 px-6 rounded-full" data-filter="corporate">Korporat</button>
+          </div>
+
+          <!-- Works Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Work 1 -->
+            <div class="work-card" data-category="film">
+              <div class="rounded-xl overflow-hidden relative group">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-80 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-5xl text-cinevix-orange mb-4">
+                      <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">"The Silent Echo"</h3>
+                    <p class="text-cinevix-orange">Film Pendek - Drama</p>
+                  </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                  <h3 class="text-xl font-bold text-white mb-2">"The Silent Echo"</h3>
+                  <p class="text-cinevix-orange mb-3">Film Pendek - Drama</p>
+                  <p class="text-sm mb-4">Kisah perjuangan seorang tunarungu di dunia yang penuh kebisingan.</p>
+                  <button class="view-details-btn btn-orange text-white font-medium py-2 px-4 rounded-full self-start" data-work="1">Lihat Detail</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Work 2 -->
+            <div class="work-card" data-category="iklan">
+              <div class="rounded-xl overflow-hidden relative group">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-80 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-5xl text-cinevix-orange mb-4">
+                      <i class="fas fa-ad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Kampanye "Energi Baru"</h3>
+                    <p class="text-cinevix-orange">Iklan TV - Minuman</p>
+                  </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                  <h3 class="text-xl font-bold text-white mb-2">Kampanye "Energi Baru"</h3>
+                  <p class="text-cinevix-orange mb-3">Iklan TV - Minuman</p>
+                  <p class="text-sm mb-4">Kampanye merek minuman energi dengan pendekatan gaya hidup urban.</p>
+                  <button class="view-details-btn btn-orange text-white font-medium py-2 px-4 rounded-full self-start" data-work="2">Lihat Detail</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Work 3 -->
+            <div class="work-card" data-category="music">
+              <div class="rounded-xl overflow-hidden relative group">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-80 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-5xl text-cinevix-orange mb-4">
+                      <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">"Harmoni" - Band Lokal</h3>
+                    <p class="text-cinevix-orange">Video Musik - Indie Pop</p>
+                  </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                  <h3 class="text-xl font-bold text-white mb-2">"Harmoni" - Band Lokal</h3>
+                  <p class="text-cinevix-orange mb-3">Video Musik - Indie Pop</p>
+                  <p class="text-sm mb-4">Video musik dengan konsep visual futuristik dan animasi CGI.</p>
+                  <button class="view-details-btn btn-orange text-white font-medium py-2 px-4 rounded-full self-start" data-work="3">Lihat Detail</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Work 4 -->
+            <div class="work-card" data-category="corporate">
+              <div class="rounded-xl overflow-hidden relative group">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-80 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-5xl text-cinevix-orange mb-4">
+                      <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Profil Perusahaan XYZ</h3>
+                    <p class="text-cinevix-orange">Video Korporat - Teknologi</p>
+                  </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                  <h3 class="text-xl font-bold text-white mb-2">Profil Perusahaan XYZ</h3>
+                  <p class="text-cinevix-orange mb-3">Video Korporat - Teknologi</p>
+                  <p class="text-sm mb-4">Video profil perusahaan yang menampilkan inovasi dan budaya kerja.</p>
+                  <button class="view-details-btn btn-orange text-white font-medium py-2 px-4 rounded-full self-start" data-work="4">Lihat Detail</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Work 5 -->
+            <div class="work-card" data-category="film">
+              <div class="rounded-xl overflow-hidden relative group">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-80 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-5xl text-cinevix-orange mb-4">
+                      <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">"Urban Jungle"</h3>
+                    <p class="text-cinevix-orange">Film Dokumenter</p>
+                  </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                  <h3 class="text-xl font-bold text-white mb-2">"Urban Jungle"</h3>
+                  <p class="text-cinevix-orange mb-3">Film Dokumenter</p>
+                  <p class="text-sm mb-4">Eksplorasi kehidupan satwa liar di perkotaan modern.</p>
+                  <button class="view-details-btn btn-orange text-white font-medium py-2 px-4 rounded-full self-start" data-work="5">Lihat Detail</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Work 6 -->
+            <div class="work-card" data-category="iklan">
+              <div class="rounded-xl overflow-hidden relative group">
+                <div class="bg-gradient-to-br from-cinevix-orange/10 to-cinevix-navy w-full h-80 flex items-center justify-center">
+                  <div class="text-center p-6">
+                    <div class="text-5xl text-cinevix-orange mb-4">
+                      <i class="fas fa-ad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Kampanye "Go Green"</h3>
+                    <p class="text-cinevix-orange">Iklan Digital - Lingkungan</p>
+                  </div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                  <h3 class="text-xl font-bold text-white mb-2">Kampanye "Go Green"</h3>
+                  <p class="text-cinevix-orange mb-3">Iklan Digital - Lingkungan</p>
+                  <p class="text-sm mb-4">Seri iklan digital untuk meningkatkan kesadaran lingkungan.</p>
+                  <button class="view-details-btn btn-orange text-white font-medium py-2 px-4 rounded-full self-start" data-work="6">Lihat Detail</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-16 text-center">
+            <span class="nav-item btn-orange text-white font-bold py-3 px-8 rounded-full inline-flex items-center cursor-pointer" data-page="home"> <i class="fas fa-arrow-left mr-2"></i> Kembali ke Beranda </span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-cinevix-gray border-t border-cinevix-dark">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-6 md:mb-0">
+            <div class="logo-text text-2xl">CINEVIX</div>
+            <p class="mt-2">House Production Profesional</p>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-6"></div>
+        </div>
+
+        <div class="border-t border-cinevix-dark mt-10 pt-6 text-center text-sm text-gray-500">
+          <p>&copy; 2023 CINEVIX House Production. Hak Cipta Dilindungi.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-cinevix-orange flex items-center justify-center text-white shadow-lg hover:bg-orange-600 transition z-40">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+      // Navigasi halaman
+      function showPage(pageId) {
+        // Sembunyikan semua halaman
+        document.querySelectorAll(".page").forEach((page) => {
+          page.classList.remove("active");
+        });
+
+        // Tampilkan halaman yang dipilih
+        document.getElementById(pageId).classList.add("active");
+
+        // Update navigasi aktif
+        document.querySelectorAll(".nav-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        document.querySelectorAll(`.nav-item[data-page="${pageId}"]`).forEach((item) => {
+          item.classList.add("active");
+        });
+
+        // Scroll ke atas halaman
+        window.scrollTo(0, 0);
+      }
+
+      // Inisialisasi halaman
+      document.querySelectorAll(".nav-item").forEach((item) => {
+        item.addEventListener("click", function () {
+          const pageId = this.getAttribute("data-page");
+          showPage(pageId);
+        });
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Work filter functionality
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const workCards = document.querySelectorAll(".work-card");
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Remove active class from all buttons
+          filterBtns.forEach((b) => b.classList.remove("active"));
+
+          // Add active class to clicked button
+          btn.classList.add("active");
+
+          const filter = btn.getAttribute("data-filter");
+
+          // Filter work cards
+          workCards.forEach((card) => {
+            if (filter === "all" || card.getAttribute("data-category") === filter) {
+              card.style.display = "block";
+              setTimeout(() => {
+                card.style.opacity = "1";
+              }, 10);
+            } else {
+              card.style.opacity = "0";
+              setTimeout(() => {
+                card.style.display = "none";
+              }, 300);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
