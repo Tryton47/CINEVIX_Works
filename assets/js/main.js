@@ -347,7 +347,7 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
   }, { threshold: 0.5 });
 
 /* ============================================================
-   CARD MOUSE SHINE & SPOTLIGHT EFFECT
+   CARD MOUSE SHINE, SPOTLIGHT & 3D TILT EFFECT
    ============================================================ */
 (function initCardSpotlight() {
   const cards = document.querySelectorAll(".glass-panel, .portfolio-card, .team-card, .work-card, .about-card, .contact-card");
@@ -358,6 +358,21 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
       const y = e.clientY - rect.top;
       card.style.setProperty("--mouse-x", `${x}px`);
       card.style.setProperty("--mouse-y", `${y}px`);
+
+      // 3D Tilt calculation for team cards
+      if (card.classList.contains("team-card") || card.classList.contains("about-card")) {
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+      }
+    });
+
+    card.addEventListener("mouseleave", () => {
+      if (card.classList.contains("team-card") || card.classList.contains("about-card")) {
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)";
+      }
     });
   });
 })();

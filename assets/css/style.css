@@ -791,19 +791,21 @@ ul { list-style: none; }
 
 .team-card {
   background: var(--color-bg-card);
+  backdrop-filter: blur(16px);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: all var(--transition-normal);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 .team-card:hover {
   border-color: var(--color-border-hover);
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
 }
 .team-img-wrap {
   width: 100%;
-  height: 260px;
+  height: 280px;
   overflow: hidden;
   position: relative;
 }
@@ -813,25 +815,26 @@ ul { list-style: none; }
   object-fit: cover;
   transition: transform var(--transition-slow);
 }
-.team-card:hover .team-img-wrap img { transform: scale(1.06); }
+.team-card:hover .team-img-wrap img { transform: scale(1.08); }
 .team-details {
-  padding: 24px;
+  padding: 26px 20px;
   text-align: center;
 }
 .team-details h3 {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--color-white);
 }
 .team-details .role {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   color: var(--color-orange);
   margin-top: 4px;
 }
 .team-details .bio {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--color-text-muted);
   margin-top: 10px;
   line-height: 1.6;
@@ -839,8 +842,8 @@ ul { list-style: none; }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 32px;
 }
 
 /* =============================================================
@@ -849,32 +852,39 @@ ul { list-style: none; }
 .marquee-wrap {
   overflow: hidden;
   position: relative;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  padding: 16px 0;
 }
 .marquee-track {
   display: flex;
-  gap: 30px;
+  gap: 32px;
   width: max-content;
-  animation: marqueeScroll 25s linear infinite;
+  animation: marqueeScroll 22s linear infinite;
 }
 .marquee-track:hover { animation-play-state: paused; }
 .partner-badge {
   background: var(--color-bg-card);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
-  padding: 18px 36px;
-  border-radius: var(--radius-md);
+  padding: 18px 40px;
+  border-radius: var(--radius-full);
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   color: var(--color-text-muted);
   transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .partner-badge:hover {
-  color: var(--color-orange);
-  border-color: var(--color-orange-glow);
+  color: var(--color-white);
+  border-color: var(--color-orange);
   background: var(--color-bg-hover);
+  box-shadow: 0 8px 30px var(--color-orange-glow);
+  transform: translateY(-2px);
 }
 @keyframes marqueeScroll {
   from { transform: translateX(0); }
