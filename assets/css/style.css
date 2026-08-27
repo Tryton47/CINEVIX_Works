@@ -8,19 +8,19 @@
 
 /* ---- CSS Variables ---- */
 :root {
-  --color-bg-dark:     #070B12;
-  --color-bg-surface:  #0E1422;
-  --color-bg-card:     #131B2E;
-  --color-bg-hover:    #19243C;
-  --color-border:      rgba(255, 255, 255, 0.08);
-  --color-border-hover:rgba(255, 94, 30, 0.4);
+  --color-bg-dark:     #060911;
+  --color-bg-surface:  #0B101D;
+  --color-bg-card:     rgba(17, 25, 43, 0.75);
+  --color-bg-hover:    rgba(25, 36, 60, 0.85);
+  --color-border:      rgba(255, 255, 255, 0.09);
+  --color-border-hover:rgba(255, 94, 30, 0.5);
 
   --color-orange:       #FF5E1E;
   --color-orange-hover: #E0480C;
-  --color-orange-glow:  rgba(255, 94, 30, 0.35);
-  --color-orange-dim:   rgba(255, 94, 30, 0.12);
+  --color-orange-glow:  rgba(255, 94, 30, 0.4);
+  --color-orange-dim:   rgba(255, 94, 30, 0.14);
 
-  --color-text-main:   #F1F5F9;
+  --color-text-main:   #F8FAFC;
   --color-text-muted:  #94A3B8;
   --color-text-dim:    #64748B;
   --color-white:       #FFFFFF;
@@ -28,20 +28,20 @@
   --font-heading: 'Outfit', sans-serif;
   --font-body:    'Plus Jakarta Sans', sans-serif;
 
-  --radius-sm:   10px;
-  --radius-md:   16px;
-  --radius-lg:   24px;
+  --radius-sm:   12px;
+  --radius-md:   18px;
+  --radius-lg:   26px;
   --radius-full: 9999px;
 
-  --shadow-subtle: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  --shadow-glow:   0 0 50px rgba(255, 94, 30, 0.2);
-  --shadow-card:   0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  --shadow-subtle: 0 12px 36px -10px rgba(0, 0, 0, 0.6);
+  --shadow-glow:   0 0 60px rgba(255, 94, 30, 0.25);
+  --shadow-card:   0 24px 48px -15px rgba(0, 0, 0, 0.7);
 
-  --transition-fast:   0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow:   0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast:   0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow:   0.75s cubic-bezier(0.16, 1, 0.3, 1);
 
-  --header-height: 80px;
+  --header-height: 84px;
   --container-max: 1240px;
 }
 
@@ -190,6 +190,22 @@ ul { list-style: none; }
 .section--alt {
   background: linear-gradient(180deg, var(--color-bg-surface) 0%, var(--color-bg-dark) 100%);
 }
+
+/* Glassmorphism Panel Base */
+.glass-panel {
+  background: var(--color-bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-subtle);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+}
+.glass-panel:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+}
+
 .section-header {
   text-align: center;
   margin-bottom: 72px;

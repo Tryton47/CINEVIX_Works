@@ -338,7 +338,20 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
     });
   }, { threshold: 0.5 });
 
-  counters.forEach(c => obs.observe(c));
+/* ============================================================
+   CARD MOUSE SHINE & SPOTLIGHT EFFECT
+   ============================================================ */
+(function initCardSpotlight() {
+  const cards = document.querySelectorAll(".glass-panel, .portfolio-card, .team-card, .work-card, .about-card, .contact-card");
+  cards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    });
+  });
 })();
 
 /* ============================================================
