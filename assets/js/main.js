@@ -17,6 +17,41 @@
 })();
 
 /* ============================================================
+   SCROLL PROGRESS BAR & REVEAL OBSERVER
+   ============================================================ */
+(function initScrollProgressAndReveals() {
+  const progress = document.getElementById("scroll-progress");
+  
+  function updateScroll() {
+    if (progress) {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      progress.style.width = scrolled + "%";
+    }
+  }
+
+  window.addEventListener("scroll", updateScroll, { passive: true });
+  updateScroll();
+
+  // Scroll Reveal Intersection Observer
+  const revealElements = document.querySelectorAll(".reveal-on-scroll, .reveal-left, .reveal-right, .reveal-scale");
+  if (revealElements.length && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          // Optionally unobserve if only reveal once:
+          // observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
+
+    revealElements.forEach((el) => observer.observe(el));
+  }
+})();
+
+/* ============================================================
    HEADER — SCROLL EFFECT
    ============================================================ */
 (function initHeader() {
