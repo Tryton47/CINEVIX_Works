@@ -23,11 +23,19 @@
   const progress = document.getElementById("scroll-progress");
   
   function updateScroll() {
+    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
     if (progress) {
-      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
       progress.style.width = scrolled + "%";
+    }
+
+    // Parallax effect on Hero section
+    const heroVisual = document.querySelector(".hero-visual");
+    const heroText = document.querySelector(".hero-text");
+    if (winScroll < 900) {
+      if (heroVisual) heroVisual.style.transform = `translateY(${winScroll * 0.12}px)`;
+      if (heroText) heroText.style.transform = `translateY(${winScroll * 0.05}px)`;
     }
   }
 
