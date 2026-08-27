@@ -346,6 +346,9 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
     });
   }, { threshold: 0.5 });
 
+  counters.forEach(c => obs.observe(c));
+})();
+
 /* ============================================================
    CARD MOUSE SHINE, SPOTLIGHT & 3D TILT EFFECT
    ============================================================ */
