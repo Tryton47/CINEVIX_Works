@@ -790,13 +790,45 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   transition: all var(--t-normal) var(--ease-out);
 }
-.team-full-card:hover { border-color: var(--border-amber); transform: translateY(-5px); }
-.team-full-card .team-img-wrap { height: clamp(200px, 28vw, 240px); }
-.team-full-card .team-body { flex-direction: column; align-items: flex-start; padding: 20px; }
-.team-full-card .role { margin-top: 4px; }
-.team-full-card .bio { font-size: 13px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+.team-full-card:hover {
+  border-color: var(--border-amber);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.6);
+}
+.team-full-card .team-img-wrap {
+  height: clamp(210px, 30vw, 260px);
+  width: 100%;
+}
+.team-full-card .team-body {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(18px, 3vw, 24px);
+  flex-grow: 1;
+}
+.team-full-card h3 {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+.team-full-card .role {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--amber);
+  margin-top: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.team-full-card .bio {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
 
 /* ============ MARQUEE / PARTNERS ============ */
 .marquee-section { padding: clamp(48px, 8vw, 64px) 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
