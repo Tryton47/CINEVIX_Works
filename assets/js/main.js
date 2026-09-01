@@ -1,6 +1,6 @@
 /**
- * CINEVIX Works — main.js
- * Interactive features: loader, page transitions, swipers, modals, animations
+ * CINEVIX Works — main.js v3
+ * Cinematic Studio Interactive Features
  */
 
 /* ============================================================
@@ -10,63 +10,31 @@
   const loader = document.getElementById("page-loader");
   if (!loader) return;
   window.addEventListener("load", () => {
-    setTimeout(() => {
-      loader.classList.add("hidden");
-    }, 1800);
+    setTimeout(() => loader.classList.add("hidden"), 1800);
   });
 })();
 
 /* ============================================================
-   SCROLL PROGRESS BAR & REVEAL OBSERVER
+   HEADER: Scroll Effect + Transparent On Top
    ============================================================ */
-(function initScrollProgressAndReveals() {
-  const progress = document.getElementById("scroll-progress");
-  
-  function updateScroll() {
-    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-    if (progress) {
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-      progress.style.width = scrolled + "%";
-    }
-
-    // Parallax effect on Hero section
-    const heroVisual = document.querySelector(".hero-visual");
-    const heroText = document.querySelector(".hero-text");
-    if (winScroll < 900) {
-      if (heroVisual) heroVisual.style.transform = `translateY(${winScroll * 0.12}px)`;
-      if (heroText) heroText.style.transform = `translateY(${winScroll * 0.05}px)`;
-    }
-  }
-
-  window.addEventListener("scroll", updateScroll, { passive: true });
-  updateScroll();
-
-  // Scroll Reveal Intersection Observer
-  const revealElements = document.querySelectorAll(".reveal-on-scroll, .reveal-left, .reveal-right, .reveal-scale");
-  if (revealElements.length && "IntersectionObserver" in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("revealed");
-          // Optionally unobserve if only reveal once:
-          // observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
-
-    revealElements.forEach((el) => observer.observe(el));
-  }
+(function initHeader() {
+  const header = document.getElementById("site-header");
+  if (!header) return;
+  const update = () => header.classList.toggle("scrolled", window.scrollY > 60);
+  window.addEventListener("scroll", update, { passive: true });
+  update();
 })();
 
 /* ============================================================
-   HEADER — SCROLL EFFECT
+   SCROLL PROGRESS BAR
    ============================================================ */
-(function initHeader() {
-  const header = document.querySelector(".header");
-  if (!header) return;
+(function initScrollProgress() {
+  const bar = document.getElementById("scroll-progress");
+  if (!bar) return;
   window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 40);
+    const h = document.documentElement;
+    const progress = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = `${progress}%`;
   }, { passive: true });
 })();
 
@@ -79,11 +47,9 @@
   if (!btn || !menu) return;
 
   btn.addEventListener("click", () => {
-    const isOpen = menu.classList.toggle("open");
-    btn.querySelector("i").className = isOpen ? "fas fa-times" : "fas fa-bars";
+    const open = menu.classList.toggle("open");
+    btn.querySelector("i").className = open ? "fas fa-times" : "fas fa-bars";
   });
-
-  // Close on outside click
   document.addEventListener("click", (e) => {
     if (!btn.contains(e.target) && !menu.contains(e.target)) {
       menu.classList.remove("open");
@@ -93,28 +59,30 @@
 })();
 
 /* ============================================================
-   PAGE NAVIGATION (SPA-style with transitions)
+   PAGE ROUTER (SPA)
    ============================================================ */
 const PageRouter = (function () {
   const pages    = document.querySelectorAll(".page");
-  const navLinks = document.querySelectorAll(".nav-link");
+  const navLinks = document.querySelectorAll(".nav-link[data-page]");
   let current    = "home";
 
   function showPage(pageId) {
-    if (pageId === current) return;
+    if (pageId === current) {
+      // Same page — scroll to top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     current = pageId;
 
     pages.forEach(p => {
-      p.classList.remove("active", "page-enter");
+      p.classList.remove("active", "entering");
     });
 
     const target = document.getElementById(pageId);
     if (!target) return;
-
     target.classList.add("active");
-    // Trigger reflow then add enter animation
-    void target.offsetWidth;
-    target.classList.add("page-enter");
+    void target.offsetWidth; // reflow
+    target.classList.add("entering");
 
     navLinks.forEach(l => {
       l.classList.toggle("active", l.dataset.page === pageId);
@@ -129,7 +97,6 @@ const PageRouter = (function () {
     if (mobileBtn) mobileBtn.querySelector("i").className = "fas fa-bars";
   }
 
-  // Attach to all nav-link elements
   navLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
@@ -141,25 +108,32 @@ const PageRouter = (function () {
   return { showPage };
 })();
 
-// Make globally accessible (for onclick in HTML)
-window.showPage = PageRouter.showPage.bind(PageRouter);
+window.showPage = (id) => PageRouter.showPage(id);
+
+// Navigate to contact section on home page
+window.goContact = function () {
+  PageRouter.showPage("home");
+  setTimeout(() => {
+    const el = document.getElementById("contact");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  }, 100);
+};
 
 /* ============================================================
-   AOS INIT
+   AOS (Scroll Reveal Animations)
    ============================================================ */
 (function initAOS() {
-  if (typeof AOS !== "undefined") {
-    AOS.init({
-      duration: 700,
-      once: true,
-      offset: 80,
-      easing: "ease-out-cubic",
-    });
-  }
+  if (typeof AOS === "undefined") return;
+  AOS.init({
+    duration: 750,
+    once: true,
+    offset: 60,
+    easing: "ease-out-quart",
+  });
 })();
 
 /* ============================================================
-   SWIPER — PORTFOLIO (Coverflow)
+   SWIPER — PORTFOLIO (Coverflow Effect)
    ============================================================ */
 (function initPortfolioSwiper() {
   if (typeof Swiper === "undefined") return;
@@ -170,14 +144,14 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
     loop: true,
     slidesPerView: "auto",
     coverflowEffect: {
-      rotate: 30,
+      rotate: 24,
       stretch: 0,
-      depth: 120,
+      depth: 100,
       modifier: 1.2,
       slideShadows: false,
     },
     autoplay: {
-      delay: 4500,
+      delay: 4000,
       disableOnInteraction: false,
       pauseOnMouseEnter: true,
     },
@@ -190,31 +164,22 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
       nextEl: ".portfolio-swiper .swiper-button-next",
       prevEl: ".portfolio-swiper .swiper-button-prev",
     },
-    on: {
-      slideChangeTransitionStart() {
-        // Slide entrance animation
-        const active = this.slides[this.activeIndex];
-        if (!active) return;
-        active.style.animation = "none";
-        void active.offsetWidth;
-        active.style.animation = "slideEntrance 0.5s cubic-bezier(0.4,0,0.2,1) forwards";
-      }
-    }
   });
 })();
 
 /* ============================================================
-   SWIPER — TEAM (Cards)
+   SWIPER — TEAM
    ============================================================ */
 (function initTeamSwiper() {
   if (typeof Swiper === "undefined") return;
   new Swiper(".team-swiper", {
-    effect: "cards",
     grabCursor: true,
     centeredSlides: true,
     loop: true,
+    spaceBetween: 24,
+    slidesPerView: 1,
     autoplay: {
-      delay: 3500,
+      delay: 3800,
       disableOnInteraction: false,
       pauseOnMouseEnter: true,
     },
@@ -228,14 +193,15 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
       prevEl: ".team-swiper .swiper-button-prev",
     },
     breakpoints: {
-      640:  { slidesPerView: 2, effect: "slide", spaceBetween: 20 },
-      1024: { slidesPerView: 3, effect: "slide", spaceBetween: 28 },
-    }
+      600:  { slidesPerView: 2, spaceBetween: 20 },
+      900:  { slidesPerView: 3, spaceBetween: 24 },
+      1200: { slidesPerView: 4, spaceBetween: 28 },
+    },
   });
 })();
 
 /* ============================================================
-   WORK FILTER
+   WORKS FILTER
    ============================================================ */
 (function initWorkFilter() {
   const filterBtns = document.querySelectorAll(".filter-btn");
@@ -249,20 +215,22 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
 
       const filter = btn.dataset.filter;
       workCards.forEach((card, i) => {
-        const match = filter === "all" || card.dataset.category === filter;
-        card.style.transition = `opacity 0.3s ease ${i * 40}ms, transform 0.3s ease ${i * 40}ms`;
-        if (match) {
+        const show = filter === "all" || card.dataset.category === filter;
+        const delay = i * 40;
+
+        if (show) {
           card.style.display = "";
+          card.style.transition = `opacity 0.35s ease ${delay}ms, transform 0.35s ease ${delay}ms`;
           requestAnimationFrame(() => {
             card.style.opacity = "1";
             card.style.transform = "";
           });
         } else {
           card.style.opacity = "0";
-          card.style.transform = "scale(0.9)";
+          card.style.transform = "scale(0.92)";
           setTimeout(() => {
             if (card.style.opacity === "0") card.style.display = "none";
-          }, 350);
+          }, 380);
         }
       });
     });
@@ -295,14 +263,6 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
   closeBtn?.addEventListener("click", closeModal);
   backdrop?.addEventListener("click", closeModal);
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
-
-  // Auto-bind data-video-url cards
-  document.querySelectorAll("[data-video-url]").forEach(el => {
-    el.addEventListener("click", () => {
-      const url = el.dataset.videoUrl;
-      if (url) window.openModal(url);
-    });
-  });
 })();
 
 /* ============================================================
@@ -312,7 +272,7 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
   const btn = document.getElementById("scrollTopBtn");
   if (!btn) return;
   window.addEventListener("scroll", () => {
-    btn.classList.toggle("visible", window.scrollY > 320);
+    btn.classList.toggle("visible", window.scrollY > 400);
   }, { passive: true });
   btn.addEventListener("click", e => {
     e.preventDefault();
@@ -321,7 +281,7 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
 })();
 
 /* ============================================================
-   STATS COUNTER ANIMATION (hero)
+   HERO STATS COUNTER
    ============================================================ */
 (function initCounters() {
   const counters = document.querySelectorAll("[data-count]");
@@ -334,14 +294,12 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
       const target = parseInt(el.dataset.count, 10);
       const suffix = el.dataset.suffix || "";
       let start    = 0;
-      const dur    = 1800;
-      const step   = 16;
-      const inc    = target / (dur / step);
+      const inc    = target / (1600 / 16);
       const timer  = setInterval(() => {
         start = Math.min(start + inc, target);
         el.textContent = Math.floor(start) + suffix;
         if (start >= target) clearInterval(timer);
-      }, step);
+      }, 16);
       obs.unobserve(el);
     });
   }, { threshold: 0.5 });
@@ -350,38 +308,24 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
 })();
 
 /* ============================================================
-   CARD MOUSE SHINE, SPOTLIGHT & 3D TILT EFFECT
+   PARALLAX: Hero Section
    ============================================================ */
-(function initCardSpotlight() {
-  const cards = document.querySelectorAll(".glass-panel, .portfolio-card, .team-card, .work-card, .about-card, .contact-card");
-  cards.forEach(card => {
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty("--mouse-x", `${x}px`);
-      card.style.setProperty("--mouse-y", `${y}px`);
+(function initParallax() {
+  const heroText   = document.querySelector(".hero-text");
+  const heroVisual = document.querySelector(".hero-visual");
 
-      // 3D Tilt calculation for team cards
-      if (card.classList.contains("team-card") || card.classList.contains("about-card")) {
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-      }
-    });
+  function onScroll() {
+    const y = window.scrollY;
+    if (y > 800) return;
+    if (heroText)   heroText.style.transform   = `translateY(${y * 0.07}px)`;
+    if (heroVisual) heroVisual.style.transform = `translateY(${y * 0.12}px)`;
+  }
 
-    card.addEventListener("mouseleave", () => {
-      if (card.classList.contains("team-card") || card.classList.contains("about-card")) {
-        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)";
-      }
-    });
-  });
+  window.addEventListener("scroll", onScroll, { passive: true });
 })();
 
 /* ============================================================
-   CONTACT FORM (WhatsApp redirect example)
+   CONTACT FORM → WhatsApp
    ============================================================ */
 (function initContactForm() {
   const form = document.getElementById("contact-form");
@@ -394,8 +338,26 @@ window.showPage = PageRouter.showPage.bind(PageRouter);
     const message = form.querySelector("[name='message']")?.value || "";
 
     const text = encodeURIComponent(
-      `Halo CINEVIX!\nNama: ${name}\nEmail: ${email}\nSubjek: ${subject}\n\n${message}`
+      `Halo CINEVIX! 🎬\n\nNama: ${name}\nEmail: ${email}\nJenis Proyek: ${subject}\n\nDetail:\n${message}`
     );
-    window.open(`https://wa.me/6221123456?text=${text}`, "_blank");
+    window.open(`https://wa.me/6281234567890?text=${text}`, "_blank");
+  });
+})();
+
+/* ============================================================
+   3D TILT — Cards
+   ============================================================ */
+(function initTilt() {
+  const cards = document.querySelectorAll(".feature-card, .team-card, .team-full-card");
+  cards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width  - 0.5;
+      const y = (e.clientY - rect.top)  / rect.height - 0.5;
+      card.style.transform = `perspective(800px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg) translateY(-4px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
   });
 })();

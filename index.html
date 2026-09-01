@@ -1,670 +1,710 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="CINEVIX Works — House Production Visual Sinematik & Konten Digital Profesional." />
-    <title>CINEVIX — House Production</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CINEVIX Works — House Production Visual Sinematik & Konten Digital Profesional dari Malang." />
+  <title>CINEVIX — House Production</title>
+  <link rel="icon" type="image/png" href="assets/img/logocinevix.png" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/img/logocinevix.png" />
+  <!-- Google Fonts: Bebas Neue + Outfit + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-    <!-- AOS -->
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <!-- Swiper -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
-  <body>
-    <!-- TOP SCROLL PROGRESS BAR -->
-    <div class="scroll-progress-bar" id="scroll-progress"></div>
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
 
-    <!-- PAGE LOADER -->
-    <div id="page-loader">
-      <div class="loader-title">
-        CINEVIX<span>.</span>
-      </div>
-      <div class="loader-bar">
-        <div class="loader-bar-fill"></div>
-      </div>
+<!-- PAGE LOADER -->
+<div id="page-loader">
+  <div class="loader-inner">
+    <div class="loader-film-strip">
+      <div class="loader-frame"></div>
+      <div class="loader-frame"></div>
+      <div class="loader-frame"></div>
+      <div class="loader-frame"></div>
+      <div class="loader-frame"></div>
     </div>
+    <div class="loader-wordmark">CINEVIX<span>.</span></div>
+    <div class="loader-sub">House Production · Malang</div>
+    <div class="loader-line"><div class="loader-line-fill"></div></div>
+  </div>
+</div>
 
-    <!-- HEADER / NAVBAR -->
-    <header class="header">
-      <div class="container">
-        <div class="header-inner">
+<!-- HEADER -->
+<header class="header" id="site-header">
+  <div class="container">
+    <div class="header-inner">
 
-          <!-- Clean Brand Typography -->
-          <div class="brand-logo" onclick="showPage('home')">
-            CINEVIX<span class="dot">.</span><span class="sub">WORKS</span>
-          </div>
-
-          <!-- Balanced Navigation Links -->
-          <nav class="nav">
-            <span class="nav-link active" data-page="home">Beranda</span>
-            <span class="nav-link" data-page="team">Tim</span>
-            <span class="nav-link" data-page="works">Karya</span>
-            <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'}); showPage('home');">
-              <i class="fas fa-paper-plane"></i> Hubungi Kami
-            </button>
-          </nav>
-
-          <!-- Mobile Toggle -->
-          <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
+      <div class="wordmark" onclick="showPage('home')">
+        CINEVIX<em>.</em>
+        <small>House Production</small>
       </div>
 
-      <!-- Mobile Navigation -->
-      <nav class="mobile-nav" id="mobile-nav">
+      <nav class="nav" id="main-nav">
         <span class="nav-link active" data-page="home">Beranda</span>
         <span class="nav-link" data-page="team">Tim</span>
         <span class="nav-link" data-page="works">Karya</span>
+        <button class="nav-cta" onclick="goContact()">
+          <i class="fas fa-paper-plane"></i> Diskusi Proyek
+        </button>
       </nav>
-    </header>
 
-    <!-- HOME PAGE -->
-    <div id="home" class="page active">
-
-      <!-- HERO SECTION -->
-      <section class="hero" id="hero">
-        <div class="container" style="width:100%;">
-          <div class="hero-grid">
-
-            <!-- Hero Text -->
-            <div class="hero-text" data-aos="fade-right">
-              <div class="section-eyebrow">
-                <i class="fas fa-film"></i> House Production — Malang
-              </div>
-              <h1 class="hero-title">
-                Mencipta Visual <br /><span class="orange">Mengesankan.</span>
-              </h1>
-              <p class="hero-desc">
-                CINEVIX menggabungkan penceritaan yang kuat dengan teknologi sinematik terkini untuk menghasilkan karya visual yang memukau dan berkesan.
-              </p>
-
-              <div class="hero-actions">
-                <button class="btn-primary" onclick="showPage('works')">
-                  <i class="fas fa-play"></i> Lihat Karya Kami
-                </button>
-                <button class="btn-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-                  <i class="fas fa-envelope"></i> Hubungi Kami
-                </button>
-              </div>
-
-              <div class="hero-stats">
-                <div>
-                  <div class="stat-num" data-count="100" data-suffix="+">0+</div>
-                  <div class="stat-label">Proyek Selesai</div>
-                </div>
-                <div>
-                  <div class="stat-num" data-count="50" data-suffix="+">0+</div>
-                  <div class="stat-label">Klien Puas</div>
-                </div>
-                <div>
-                  <div class="stat-num" data-count="5" data-suffix="+ Thn">0</div>
-                  <div class="stat-label">Pengalaman</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Hero Video Preview (Cropped Clean Loop) -->
-            <div class="hero-visual" data-aos="fade-left" data-aos-delay="100">
-              <div class="hero-video-wrap">
-                <div class="video-clean-wrapper">
-                  <iframe
-                    src="https://www.youtube.com/embed/CiEdzvwecFg?autoplay=1&mute=1&loop=1&playlist=CiEdzvwecFg&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1"
-                    title="CINEVIX Reel"
-                    allow="autoplay; encrypted-media"
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- ABOUT SECTION -->
-      <section id="about" class="section section--alt">
-        <div class="container">
-          <div class="section-header" data-aos="fade-up">
-            <span class="section-eyebrow">Tentang Kami</span>
-            <h2 class="section-title">Dedikasi Pada Kualitas Sinema</h2>
-            <p class="section-subtitle">Rumah produksi berpengalaman yang berfokus pada hasil visual terbaik</p>
-          </div>
-
-          <div class="about-grid">
-            <!-- Visi & Misi -->
-            <div style="display:flex;flex-direction:column;gap:20px;">
-              <div class="about-card" data-aos="fade-up" data-aos-delay="100">
-                <h3>Visi Kami</h3>
-                <p>Menjadi pionir produksi visual yang diakui secara global melalui inovasi, estetika sinematik, dan penceritaan yang kuat.</p>
-              </div>
-
-              <div class="about-card" data-aos="fade-up" data-aos-delay="150">
-                <h3>Misi Kami</h3>
-                <p>Menghadirkan layanan produksi visual dari konsep hingga pasca-produksi dengan standar profesional tertinggi.</p>
-              </div>
-            </div>
-
-            <!-- Why Us -->
-            <div class="about-card" data-aos="fade-up" data-aos-delay="200">
-              <h3>Mengapa Memilih Kami?</h3>
-
-              <div class="why-list">
-                <div class="why-item">
-                  <div class="why-icon"><i class="fas fa-video"></i></div>
-                  <div>
-                    <h4>Produksi Profesional</h4>
-                    <p>Tim ahli & peralatan kelas sinema untuk hasil visual presisi.</p>
-                  </div>
-                </div>
-
-                <div class="why-item">
-                  <div class="why-icon"><i class="fas fa-lightbulb"></i></div>
-                  <div>
-                    <h4>Kreativitas Konseptual</h4>
-                    <p>Ide segar yang dirancang khusus sesuai identitas brand Anda.</p>
-                  </div>
-                </div>
-
-                <div class="why-item">
-                  <div class="why-icon"><i class="fas fa-clock"></i></div>
-                  <div>
-                    <h4>Ketepatan Waktu</h4>
-                    <p>Alur kerja terstruktur untuk memastikan penyelesaian tepat waktu.</p>
-                  </div>
-                </div>
-
-                <div class="why-item">
-                  <div class="why-icon"><i class="fas fa-handshake"></i></div>
-                  <div>
-                    <h4>Kolaborasi Transparan</h4>
-                    <p>Komunikasi aktif sepanjang proses pra-produksi hingga rilis.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PORTFOLIO PREVIEW SECTION -->
-      <section id="portfolio-preview" class="section">
-        <div class="container">
-          <div class="section-header" data-aos="fade-up">
-            <span class="section-eyebrow">Portofolio</span>
-            <h2 class="section-title">Karya Unggulan</h2>
-            <p class="section-subtitle">Pilihan karya visual terbaik dari berbagai segmen industri</p>
-          </div>
-
-          <div class="swiper portfolio-swiper" data-aos="fade-up" data-aos-delay="100">
-            <div class="swiper-wrapper">
-
-              <!-- Card 1 -->
-              <div class="swiper-slide">
-                <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/SR__amDl1c8')">
-                  <div class="video-clean-wrapper">
-                    <iframe src="https://www.youtube.com/embed/mpKr_rGfNc0?autoplay=1&mute=1&loop=1&playlist=mpKr_rGfNc0&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
-                  </div>
-                  <div class="portfolio-overlay"></div>
-                  <i class="fas fa-play-circle portfolio-play-icon"></i>
-                  <div class="portfolio-info">
-                    <span class="portfolio-cat">Sinema</span>
-                    <h3>Film Sinematik</h3>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Card 2 -->
-              <div class="swiper-slide">
-                <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/b07W6BfVpBQ')">
-                  <div class="video-clean-wrapper">
-                    <iframe src="https://www.youtube.com/embed/b07W6BfVpBQ?autoplay=1&mute=1&loop=1&playlist=b07W6BfVpBQ&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
-                  </div>
-                  <div class="portfolio-overlay"></div>
-                  <i class="fas fa-play-circle portfolio-play-icon"></i>
-                  <div class="portfolio-info">
-                    <span class="portfolio-cat">Iklan</span>
-                    <h3>Kampanye Visual</h3>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Card 3 -->
-              <div class="swiper-slide">
-                <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/C2YTFcNKSQU')">
-                  <div class="video-clean-wrapper">
-                    <iframe src="https://www.youtube.com/embed/C2YTFcNKSQU?autoplay=1&mute=1&loop=1&playlist=C2YTFcNKSQU&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
-                  </div>
-                  <div class="portfolio-overlay"></div>
-                  <i class="fas fa-play-circle portfolio-play-icon"></i>
-                  <div class="portfolio-info">
-                    <span class="portfolio-cat">Musik</span>
-                    <h3>Video Musik</h3>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Card 4 -->
-              <div class="swiper-slide">
-                <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/CBxgZxjdJyk')">
-                  <div class="video-clean-wrapper">
-                    <iframe src="https://www.youtube.com/embed/CBxgZxjdJyk?autoplay=1&mute=1&loop=1&playlist=CBxgZxjdJyk&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
-                  </div>
-                  <div class="portfolio-overlay"></div>
-                  <i class="fas fa-play-circle portfolio-play-icon"></i>
-                  <div class="portfolio-info">
-                    <span class="portfolio-cat">Korporat</span>
-                    <h3>Profil Perusahaan</h3>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-
-          <div style="text-align:center;margin-top:24px;">
-            <button class="btn-primary" onclick="showPage('works')">
-              Lihat Semua Karya <i class="fas fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- TEAM PREVIEW -->
-      <section id="team-preview" class="section section--alt">
-        <div class="container">
-          <div class="section-header" data-aos="fade-up">
-            <span class="section-eyebrow">Tim Kreatif</span>
-            <h2 class="section-title">Para Ahli Di Balik Layar</h2>
-            <p class="section-subtitle">Tim sinematografer, sutradara, dan editor berpengalaman</p>
-          </div>
-
-          <div class="swiper team-swiper" data-aos="fade-up" data-aos-delay="100">
-            <div class="swiper-wrapper">
-
-              <div class="swiper-slide">
-                <div class="team-card">
-                  <div class="team-img-wrap"><img src="assets/img/team1.jpg" alt="Rizky Pratama" /></div>
-                  <div class="team-details">
-                    <h3>Rizky Pratama</h3>
-                    <p class="role">Director & Founder</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="swiper-slide">
-                <div class="team-card">
-                  <div class="team-img-wrap"><img src="assets/img/team2.jpg" alt="Siti Rahayu" /></div>
-                  <div class="team-details">
-                    <h3>Siti Rahayu</h3>
-                    <p class="role">Creative Director</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="swiper-slide">
-                <div class="team-card">
-                  <div class="team-img-wrap"><img src="assets/img/team3.jpg" alt="Budi Santoso" /></div>
-                  <div class="team-details">
-                    <h3>Budi Santoso</h3>
-                    <p class="role">Director of Photography</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="swiper-slide">
-                <div class="team-card">
-                  <div class="team-img-wrap"><img src="assets/img/team4.jpg" alt="Dewi Anggraeni" /></div>
-                  <div class="team-details">
-                    <h3>Dewi Anggraeni</h3>
-                    <p class="role">Post-Production Head</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-
-          <div style="text-align:center;margin-top:24px;">
-            <button class="btn-secondary" onclick="showPage('team')">
-              Selengkapnya Tentang Tim <i class="fas fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- PARTNERS MARQUEE -->
-      <section id="partners" class="section">
-        <div class="container">
-          <div class="section-header" data-aos="fade-up">
-            <span class="section-eyebrow">Kepercayaan</span>
-            <h2 class="section-title">Mitra & Klien</h2>
-          </div>
-
-          <div class="marquee-wrap">
-            <div class="marquee-track">
-              <div class="partner-badge">NET TV</div>
-              <div class="partner-badge">SCENE+</div>
-              <div class="partner-badge">WARRIOR</div>
-              <div class="partner-badge">ADIDAS</div>
-              <div class="partner-badge">TOKOPEDIA</div>
-              <div class="partner-badge">GACOAN</div>
-              <div class="partner-badge">RCTI</div>
-              <div class="partner-badge">GRAB</div>
-              <!-- Loop copy -->
-              <div class="partner-badge">NET TV</div>
-              <div class="partner-badge">SCENE+</div>
-              <div class="partner-badge">WARRIOR</div>
-              <div class="partner-badge">ADIDAS</div>
-              <div class="partner-badge">TOKOPEDIA</div>
-              <div class="partner-badge">GACOAN</div>
-              <div class="partner-badge">RCTI</div>
-              <div class="partner-badge">GRAB</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REDESIGNED CONTACT SECTION FOR PREMIUM CUSTOMER EXPERIENCE -->
-      <section id="contact" class="section section--alt">
-        <div class="container">
-          <div class="section-header" data-aos="fade-up">
-            <span class="section-eyebrow">Hubungi Kami</span>
-            <h2 class="section-title">Mulai Diskusi Proyek Anda</h2>
-            <p class="section-subtitle">Sampaikan konsep proyek Anda atau hubungi kami langsung via WhatsApp</p>
-          </div>
-
-          <div class="contact-section-wrapper">
-
-            <!-- Form Card -->
-            <div class="contact-form-card" data-aos="fade-right">
-              <h3>Kirim Pesan Diskusi</h3>
-              <p>Tim kreatif kami siap merespons kebutuhan produksi visual Anda.</p>
-
-              <form class="contact-form-grid" id="contact-form">
-                <div class="form-row">
-                  <div class="form-field">
-                    <label class="form-label">Nama Lengkap</label>
-                    <input class="form-input" type="text" name="name" placeholder="Nama Anda" required />
-                  </div>
-                  <div class="form-field">
-                    <label class="form-label">Email</label>
-                    <input class="form-input" type="email" name="email" placeholder="email@domain.com" required />
-                  </div>
-                </div>
-
-                <div class="form-field">
-                  <label class="form-label">Subjek Proyek</label>
-                  <input class="form-input" type="text" name="subject" placeholder="Contoh: Iklan Komersial / Video Musik" />
-                </div>
-
-                <div class="form-field">
-                  <label class="form-label">Detail Pesan</label>
-                  <textarea class="form-textarea" name="message" placeholder="Jelaskan secara singkat ide atau kebutuhan proyek Anda..."></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">
-                  <i class="fas fa-paper-plane"></i> Kirim Pesan Diskusi
-                </button>
-              </form>
-            </div>
-
-            <!-- Direct Contact Action Cards Column -->
-            <div class="contact-info-column" data-aos="fade-left">
-
-              <!-- WhatsApp Card -->
-              <div class="contact-action-card">
-                <div class="action-icon-box"><i class="fab fa-whatsapp"></i></div>
-                <div class="action-content">
-                  <div class="action-title">Respon Cepat via WhatsApp</div>
-                  <div class="action-desc">Konsultasi langsung dengan produser kami untuk respon instan.</div>
-                  <a href="https://wa.me/6281234567890?text=Halo%20CINEVIX,%20saya%20ingin%20konsultasi%20proyek%20visual" target="_blank" class="action-btn-link">
-                    Chat WhatsApp <i class="fas fa-arrow-right"></i>
-                  </a>
-                </div>
-              </div>
-
-              <!-- Location Card -->
-              <div class="contact-action-card">
-                <div class="action-icon-box"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="action-content">
-                  <div class="action-title">Studio Production</div>
-                  <div class="action-desc">Jl. Soekarno-Hatta No.99, Malang, Jawa Timur, Indonesia.</div>
-                  <span class="action-btn-link" style="color:var(--text-muted);">
-                    Senin - Sabtu: 09.00 - 18.00 WIB
-                  </span>
-                </div>
-              </div>
-
-              <!-- Email Card -->
-              <div class="contact-action-card">
-                <div class="action-icon-box"><i class="fas fa-envelope"></i></div>
-                <div class="action-content">
-                  <div class="action-title">Official Email</div>
-                  <div class="action-desc">Kirim penawaran atau proposal kerjasama resmi.</div>
-                  <a href="mailto:hello@cinevixworks.com" class="action-btn-link">
-                    hello@cinevixworks.com <i class="fas fa-envelope-open"></i>
-                  </a>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-    </div><!-- /#home -->
-
-    <!-- TEAM PAGE -->
-    <div id="team" class="page">
-      <section class="section" style="padding-top:calc(var(--header-height) + 30px);">
-        <div class="container">
-          <div class="section-header" data-aos="fade-up">
-            <span class="section-eyebrow">Tim Kreatif</span>
-            <h2 class="section-title">Tim Profesional CINEVIX</h2>
-            <p class="section-subtitle">Keahlian dan dedikasi penuh di setiap bidang produksi visual</p>
-          </div>
-
-          <div class="team-grid">
-
-            <div class="team-card" data-aos="fade-up">
-              <div class="team-img-wrap"><img src="assets/img/team1.jpg" alt="Rizky Pratama" /></div>
-              <div class="team-details">
-                <h3>Rizky Pratama</h3>
-                <p class="role">Director & Founder</p>
-              </div>
-            </div>
-
-            <div class="team-card" data-aos="fade-up" data-aos-delay="50">
-              <div class="team-img-wrap"><img src="assets/img/team2.jpg" alt="Siti Rahayu" /></div>
-              <div class="team-details">
-                <h3>Siti Rahayu</h3>
-                <p class="role">Creative Director</p>
-              </div>
-            </div>
-
-            <div class="team-card" data-aos="fade-up" data-aos-delay="100">
-              <div class="team-img-wrap"><img src="assets/img/team3.jpg" alt="Budi Santoso" /></div>
-              <div class="team-details">
-                <h3>Budi Santoso</h3>
-                <p class="role">Director of Photography</p>
-              </div>
-            </div>
-
-            <div class="team-card" data-aos="fade-up" data-aos-delay="150">
-              <div class="team-img-wrap"><img src="assets/img/team4.jpg" alt="Dewi Anggraeni" /></div>
-              <div class="team-details">
-                <h3>Dewi Anggraeni</h3>
-                <p class="role">Post-Production Head</p>
-              </div>
-            </div>
-
-            <div class="team-card" data-aos="fade-up" data-aos-delay="200">
-              <div class="team-img-wrap"><img src="assets/img/team5.jpg" alt="Agus Wijaya" /></div>
-              <div class="team-details">
-                <h3>Agus Wijaya</h3>
-                <p class="role">Sound Director</p>
-              </div>
-            </div>
-
-            <div class="team-card" data-aos="fade-up" data-aos-delay="250">
-              <div class="team-img-wrap"><img src="assets/img/team6.jpg" alt="Linda Sari" /></div>
-              <div class="team-details">
-                <h3>Linda Sari</h3>
-                <p class="role">Production Manager</p>
-              </div>
-            </div>
-
-          </div>
-
-          <div style="text-align:center;margin-top:40px;">
-            <button class="btn-secondary" onclick="showPage('home')">
-              <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-            </button>
-          </div>
-        </div>
-      </section>
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
+  </div>
 
-    <!-- WORKS PAGE -->
-    <div id="works" class="page">
-      <section class="section" style="padding-top:calc(var(--header-height) + 30px);">
-        <div class="container">
-          <div class="section-header" data-aos="fade-up">
-            <span class="section-eyebrow">Portofolio</span>
-            <h2 class="section-title">Galeri Karya CINEVIX</h2>
-            <p class="section-subtitle">Filter karya berdasarkan kategori proyek pilihan Anda</p>
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <span class="nav-link active" data-page="home">Beranda</span>
+    <span class="nav-link" data-page="team">Tim</span>
+    <span class="nav-link" data-page="works">Karya</span>
+    <button class="nav-cta" onclick="goContact()"><i class="fas fa-paper-plane"></i> Diskusi Proyek</button>
+  </nav>
+</header>
+
+<!-- ======================== HOME PAGE ======================== -->
+<div id="home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-ambient"></div>
+    <div class="hero-scan-line"></div>
+
+    <div class="container" style="width:100%;">
+      <div class="hero-inner">
+
+        <!-- Text Side -->
+        <div class="hero-text" data-aos="fade-right" data-aos-duration="800">
+          <div class="hero-eyebrow">Cinematic House Production</div>
+
+          <h1 class="hero-headline">
+            WE CRAFT<br />
+            <em>VISUALS</em><br />
+            THAT SPEAK.
+          </h1>
+
+          <p class="hero-desc">
+            Dari layar besar hingga konten digital — CINEVIX menghidupkan setiap ide lewat bahasa visual sinematik yang kuat, memukau, dan tak terlupakan.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-amber" onclick="showPage('works')">
+              <i class="fas fa-play"></i> Lihat Karya
+            </button>
+            <button class="btn btn-ghost" onclick="goContact()">
+              <i class="fas fa-arrow-right"></i> Diskusi Proyek
+            </button>
           </div>
 
-          <!-- Filter -->
-          <div class="filter-bar" data-aos="fade-up">
-            <button class="filter-btn active" data-filter="all">Semua</button>
-            <button class="filter-btn" data-filter="film">Film</button>
-            <button class="filter-btn" data-filter="iklan">Iklan</button>
-            <button class="filter-btn" data-filter="music">Musik</button>
-            <button class="filter-btn" data-filter="corporate">Korporat</button>
+          <div class="hero-stats">
+            <div>
+              <div class="stat-n" data-count="100" data-suffix="+">0+</div>
+              <div class="stat-l">Proyek Selesai</div>
+            </div>
+            <div>
+              <div class="stat-n" data-count="50" data-suffix="+">0+</div>
+              <div class="stat-l">Klien Puas</div>
+            </div>
+            <div>
+              <div class="stat-n" data-count="5" data-suffix=" THN">0</div>
+              <div class="stat-l">Pengalaman</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Reel Side -->
+        <div class="hero-visual" data-aos="fade-left" data-aos-duration="800" data-aos-delay="150">
+          <div class="hero-reel">
+            <!-- Cinematic Corners -->
+            <div class="reel-corner reel-corner--tl"></div>
+            <div class="reel-corner reel-corner--tr"></div>
+            <div class="reel-corner reel-corner--bl"></div>
+            <div class="reel-corner reel-corner--br"></div>
+
+            <!-- Live Badge -->
+            <div class="reel-badge">
+              <div class="reel-dot"></div>
+              SHOWREEL 2024
+            </div>
+
+            <!-- Clean Video (No UI, No Pause) -->
+            <div class="video-clean-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/CiEdzvwecFg?autoplay=1&mute=1&loop=1&playlist=CiEdzvwecFg&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1&cc_load_policy=0&fs=0&autohide=1"
+                title="CINEVIX Showreel"
+                allow="autoplay; encrypted-media"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ————————————————— ABOUT / SERVICES ————————————————— -->
+  <section id="about" class="section section--alt">
+    <div class="container">
+      <div class="about-layout">
+
+        <!-- Left: copy -->
+        <div data-aos="fade-right">
+          <div class="about-label">Tentang CINEVIX</div>
+          <h2 class="section-title">Produksi Visual<br />Yang Berbicara.</h2>
+          <p class="section-body">
+            CINEVIX adalah rumah produksi visual berbasis di Malang yang berspesialisasi dalam film, iklan, video musik, dan konten korporat. Kami percaya bahwa setiap frame harus bercerita.
+          </p>
+          <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;">
+            <button class="btn btn-amber btn-sm" onclick="showPage('works')">
+              <i class="fas fa-film"></i> Lihat Portofolio
+            </button>
+            <button class="btn btn-ghost btn-sm" onclick="goContact()">
+              <i class="fas fa-handshake"></i> Bekerja Sama
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: features grid -->
+        <div class="feature-grid" data-aos="fade-left" data-aos-delay="100">
+          <div class="feature-card">
+            <div class="feature-number">01</div>
+            <h4>Sinema & Film</h4>
+            <p>Produksi film pendek, panjang, dan dokumenter dengan standar sinematik profesional.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-number">02</div>
+            <h4>Iklan & Brand</h4>
+            <p>TVC, iklan digital, dan konten brand yang memorable dan konversi tinggi.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-number">03</div>
+            <h4>Video Musik</h4>
+            <p>Musik video artistik dengan narasi visual yang menguatkan identitas artis.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-number">04</div>
+            <h4>Korporat & Event</h4>
+            <p>Profil perusahaan, liputan event, dan konten internal kelas enterprise.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ————————————————— PORTFOLIO PREVIEW ————————————————— -->
+  <section id="portfolio-preview" class="section">
+    <div class="container">
+      <div class="section-header-center" data-aos="fade-up">
+        <span class="section-badge">Portofolio</span>
+        <h2 class="section-title">Karya Unggulan</h2>
+        <p class="section-body">Pilihan karya visual terbaik yang pernah kami kerjakan</p>
+      </div>
+
+      <div class="swiper portfolio-swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/SR__amDl1c8')">
+              <div class="video-clean-wrapper">
+                <iframe src="https://www.youtube.com/embed/mpKr_rGfNc0?autoplay=1&mute=1&loop=1&playlist=mpKr_rGfNc0&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+              </div>
+              <div class="portfolio-overlay"></div>
+              <div class="portfolio-play"><i class="fas fa-play"></i></div>
+              <div class="portfolio-info">
+                <span class="portfolio-cat">Sinema</span>
+                <h3>Film Sinematik</h3>
+                <p>Drama & Naratif</p>
+              </div>
+            </div>
           </div>
 
-          <!-- Works Grid -->
-          <div class="works-grid" data-aos="fade-up">
+          <div class="swiper-slide">
+            <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/b07W6BfVpBQ')">
+              <div class="video-clean-wrapper">
+                <iframe src="https://www.youtube.com/embed/b07W6BfVpBQ?autoplay=1&mute=1&loop=1&playlist=b07W6BfVpBQ&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+              </div>
+              <div class="portfolio-overlay"></div>
+              <div class="portfolio-play"><i class="fas fa-play"></i></div>
+              <div class="portfolio-info">
+                <span class="portfolio-cat">Iklan</span>
+                <h3>Kampanye Visual</h3>
+                <p>Iklan Komersial</p>
+              </div>
+            </div>
+          </div>
 
-            <div class="work-card" data-category="film" data-video-url="https://www.youtube.com/embed/C2YTFcNKSQU">
+          <div class="swiper-slide">
+            <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/C2YTFcNKSQU')">
               <div class="video-clean-wrapper">
                 <iframe src="https://www.youtube.com/embed/C2YTFcNKSQU?autoplay=1&mute=1&loop=1&playlist=C2YTFcNKSQU&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
               </div>
               <div class="portfolio-overlay"></div>
-              <i class="fas fa-play-circle portfolio-play-icon"></i>
-              <div class="portfolio-info">
-                <span class="portfolio-cat">Film</span>
-                <h3>Proyek Film Pendek</h3>
-              </div>
-            </div>
-
-            <div class="work-card" data-category="iklan" data-video-url="https://www.youtube.com/embed/k1gj5wCLAhc">
-              <div class="video-clean-wrapper">
-                <iframe src="https://www.youtube.com/embed/h1JDjiyoIM4?autoplay=1&mute=1&loop=1&playlist=h1JDjiyoIM4&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
-              </div>
-              <div class="portfolio-overlay"></div>
-              <i class="fas fa-play-circle portfolio-play-icon"></i>
-              <div class="portfolio-info">
-                <span class="portfolio-cat">Iklan</span>
-                <h3>Iklan Komersial Brand</h3>
-              </div>
-            </div>
-
-            <div class="work-card" data-category="music" data-video-url="https://www.youtube.com/embed/mpKr_rGfNc0">
-              <div class="video-clean-wrapper">
-                <iframe src="https://www.youtube.com/embed/X4EKm8m0ReE?autoplay=1&mute=1&loop=1&playlist=X4EKm8m0ReE&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
-              </div>
-              <div class="portfolio-overlay"></div>
-              <i class="fas fa-play-circle portfolio-play-icon"></i>
+              <div class="portfolio-play"><i class="fas fa-play"></i></div>
               <div class="portfolio-info">
                 <span class="portfolio-cat">Musik</span>
-                <h3>Video Musik Artis</h3>
+                <h3>Video Musik</h3>
+                <p>Produksi Artistik</p>
               </div>
             </div>
+          </div>
 
-            <div class="work-card" data-category="corporate" data-video-url="https://www.youtube.com/embed/CBxgZxjdJyk">
+          <div class="swiper-slide">
+            <div class="portfolio-card" onclick="openModal('https://www.youtube.com/embed/CBxgZxjdJyk')">
               <div class="video-clean-wrapper">
                 <iframe src="https://www.youtube.com/embed/CBxgZxjdJyk?autoplay=1&mute=1&loop=1&playlist=CBxgZxjdJyk&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
               </div>
               <div class="portfolio-overlay"></div>
-              <i class="fas fa-play-circle portfolio-play-icon"></i>
+              <div class="portfolio-play"><i class="fas fa-play"></i></div>
               <div class="portfolio-info">
                 <span class="portfolio-cat">Korporat</span>
                 <h3>Profil Perusahaan</h3>
+                <p>Branding Korporat</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:36px;" data-aos="fade-up">
+        <button class="btn btn-amber" onclick="showPage('works')">
+          Seluruh Karya <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ————————————————— TEAM PREVIEW ————————————————— -->
+  <section id="team-preview" class="section section--alt">
+    <div class="container">
+      <div class="section-header-center" data-aos="fade-up">
+        <span class="section-badge">Tim Kreatif</span>
+        <h2 class="section-title">Para Sineas Di Balik Layar</h2>
+        <p class="section-body">Sinematografer, sutradara, dan editor kelas satu yang berdedikasi</p>
+      </div>
+
+      <div class="swiper team-swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="team-card">
+              <div class="team-img-wrap"><img src="assets/img/team1.jpg" alt="Rizky Pratama" /></div>
+              <div class="team-body">
+                <div>
+                  <h3>Rizky Pratama</h3>
+                  <div class="role">Director & Founder</div>
+                </div>
+                <div class="team-icon"><i class="fas fa-plus"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="team-card">
+              <div class="team-img-wrap"><img src="assets/img/team2.jpg" alt="Siti Rahayu" /></div>
+              <div class="team-body">
+                <div>
+                  <h3>Siti Rahayu</h3>
+                  <div class="role">Creative Director</div>
+                </div>
+                <div class="team-icon"><i class="fas fa-plus"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="team-card">
+              <div class="team-img-wrap"><img src="assets/img/team3.jpg" alt="Budi Santoso" /></div>
+              <div class="team-body">
+                <div>
+                  <h3>Budi Santoso</h3>
+                  <div class="role">Dir. of Photography</div>
+                </div>
+                <div class="team-icon"><i class="fas fa-plus"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="team-card">
+              <div class="team-img-wrap"><img src="assets/img/team4.jpg" alt="Dewi Anggraeni" /></div>
+              <div class="team-body">
+                <div>
+                  <h3>Dewi Anggraeni</h3>
+                  <div class="role">Post-Production Head</div>
+                </div>
+                <div class="team-icon"><i class="fas fa-plus"></i></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:36px;" data-aos="fade-up">
+        <button class="btn btn-ghost" onclick="showPage('team')">
+          Kenali Seluruh Tim <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ————————————————— CLIENTS / MARQUEE ————————————————— -->
+  <section class="marquee-section" data-aos="fade-up">
+    <div class="container" style="margin-bottom:28px;">
+      <div style="text-align:center;">
+        <span class="section-badge" style="display:inline-flex;">Dipercaya Oleh</span>
+      </div>
+    </div>
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <div class="partner-tag"><i class="fas fa-circle"></i> NET TV</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> SCENE+</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> WARRIOR</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> ADIDAS</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> TOKOPEDIA</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> GACOAN</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> RCTI</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> GRAB</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> NET TV</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> SCENE+</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> WARRIOR</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> ADIDAS</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> TOKOPEDIA</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> GACOAN</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> RCTI</div>
+        <div class="partner-tag"><i class="fas fa-circle"></i> GRAB</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ————————————————— CONTACT ————————————————— -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header-center" data-aos="fade-up">
+        <span class="section-badge">Kontak</span>
+        <h2 class="section-title">Mulai Kolaborasi</h2>
+        <p class="section-body">Ceritakan visi proyek Anda, kami ubah jadi karya visual yang berbicara</p>
+      </div>
+
+      <div class="contact-layout">
+
+        <!-- Form Card -->
+        <div class="contact-form-wrap" data-aos="fade-right">
+          <h3>KIRIM PESAN</h3>
+          <p>Tim kreatif kami akan merespons dalam 1×24 jam.</p>
+
+          <form class="cf" id="contact-form">
+            <div class="cf-row">
+              <div class="cf-field">
+                <label class="cf-label">Nama Lengkap</label>
+                <input class="cf-input" type="text" name="name" placeholder="Nama Anda" required />
+              </div>
+              <div class="cf-field">
+                <label class="cf-label">Email</label>
+                <input class="cf-input" type="email" name="email" placeholder="email@domain.com" required />
               </div>
             </div>
 
-          </div>
+            <div class="cf-field">
+              <label class="cf-label">Jenis Proyek</label>
+              <input class="cf-input" type="text" name="subject" placeholder="Film / Iklan / Video Musik / Event" />
+            </div>
 
-          <div style="text-align:center;margin-top:40px;">
-            <button class="btn-secondary" onclick="showPage('home')">
-              <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            <div class="cf-field">
+              <label class="cf-label">Detail & Konsep</label>
+              <textarea class="cf-textarea" name="message" placeholder="Ceritakan ide atau kebutuhan visual proyek Anda..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-amber">
+              <i class="fas fa-paper-plane"></i> Kirim Pesan Diskusi
             </button>
-          </div>
+          </form>
         </div>
-      </section>
-    </div>
 
-    <!-- VIDEO MODAL -->
-    <div id="video-modal" class="video-modal">
-      <div class="modal-backdrop"></div>
-      <div class="modal-content">
-        <div class="modal-video-wrap">
-          <iframe id="modal-iframe" src="" title="CINEVIX Video Player" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        <!-- Info Side -->
+        <div class="contact-info-col" data-aos="fade-left">
+
+          <!-- WhatsApp CTA Hero Card -->
+          <div class="contact-cta-box">
+            <h4>CHAT LANGSUNG</h4>
+            <p>Butuh respon instan? Hubungi produser kami via WhatsApp untuk konsultasi cepat tanpa ribet.</p>
+            <a href="https://wa.me/6281234567890?text=Halo%20CINEVIX%2C%20saya%20ingin%20konsultasi%20proyek%20visual" target="_blank">
+              <i class="fab fa-whatsapp"></i> Buka WhatsApp Sekarang
+            </a>
+          </div>
+
+          <!-- Studio Location -->
+          <div class="contact-info-card">
+            <div class="cic-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div class="cic-label">Studio Produksi</div>
+              <div class="cic-text">Jl. Soekarno-Hatta No.99, Malang, Jawa Timur</div>
+              <div class="cic-text" style="margin-top:4px;">Senin – Sabtu, 09.00 – 18.00 WIB</div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="contact-info-card">
+            <div class="cic-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div class="cic-label">Email Resmi</div>
+              <div class="cic-text">Untuk proposal kerjasama & brief kreatif</div>
+              <a href="mailto:hello@cinevixworks.com" class="cic-link">
+                hello@cinevixworks.com <i class="fas fa-external-link-alt" style="font-size:10px;"></i>
+              </a>
+            </div>
+          </div>
+
         </div>
-        <button class="modal-close" id="close-modal-btn">&#215;</button>
       </div>
     </div>
+  </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-          <div class="brand-logo" onclick="showPage('home')" style="cursor:pointer;">
-            CINEVIX<span class="dot">.</span><span class="sub">WORKS</span>
-          </div>
-          <div style="color:var(--text-dim);font-size:13px;">
-            House Production Visual Sinematik & Digital
-          </div>
-        </div>
-        <div class="footer-copy">
-          &copy; 2024 CINEVIX House Production. Hak Cipta Dilindungi.
-        </div>
+</div><!-- /#home -->
+
+<!-- ======================== TEAM PAGE ======================== -->
+<div id="team" class="page">
+  <section class="section" style="padding-top:calc(var(--header-h) + 40px);">
+    <div class="container">
+      <div class="section-header-center" data-aos="fade-up">
+        <span class="section-badge">Tim Kami</span>
+        <h2 class="section-title">Para Sineas CINEVIX</h2>
+        <p class="section-body">Dedikasi penuh, kreativitas tanpa batas, hasil yang memukau</p>
       </div>
-    </footer>
 
-    <!-- Scroll To Top -->
-    <a href="#" id="scrollTopBtn" aria-label="Scroll to top">
-      <i class="fas fa-arrow-up"></i>
-    </a>
+      <div class="team-grid">
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script src="assets/js/main.js"></script>
-  </body>
+        <div class="team-full-card" data-aos="fade-up">
+          <div class="team-img-wrap"><img src="assets/img/team1.jpg" alt="Rizky Pratama" /></div>
+          <div class="team-body" style="flex-direction:column;align-items:flex-start;">
+            <h3>Rizky Pratama</h3>
+            <div class="role">Director & Founder</div>
+            <div class="bio">10+ tahun memimpin produksi film & iklan nasional dengan visi sinematik yang konsisten.</div>
+          </div>
+        </div>
+
+        <div class="team-full-card" data-aos="fade-up" data-aos-delay="50">
+          <div class="team-img-wrap"><img src="assets/img/team2.jpg" alt="Siti Rahayu" /></div>
+          <div class="team-body" style="flex-direction:column;align-items:flex-start;">
+            <h3>Siti Rahayu</h3>
+            <div class="role">Creative Director</div>
+            <div class="bio">Perancang konsep visual storytelling yang memukau, dari brief hingga eksekusi.</div>
+          </div>
+        </div>
+
+        <div class="team-full-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="team-img-wrap"><img src="assets/img/team3.jpg" alt="Budi Santoso" /></div>
+          <div class="team-body" style="flex-direction:column;align-items:flex-start;">
+            <h3>Budi Santoso</h3>
+            <div class="role">Director of Photography</div>
+            <div class="bio">Ahli komposisi, cahaya, dan lensa sinema untuk gambar yang breathtaking.</div>
+          </div>
+        </div>
+
+        <div class="team-full-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="team-img-wrap"><img src="assets/img/team4.jpg" alt="Dewi Anggraeni" /></div>
+          <div class="team-body" style="flex-direction:column;align-items:flex-start;">
+            <h3>Dewi Anggraeni</h3>
+            <div class="role">Post-Production Head</div>
+            <div class="bio">Menyempurnakan setiap frame di ruang editing untuk hasil akhir premium.</div>
+          </div>
+        </div>
+
+        <div class="team-full-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="team-img-wrap"><img src="assets/img/team5.jpg" alt="Agus Wijaya" /></div>
+          <div class="team-body" style="flex-direction:column;align-items:flex-start;">
+            <h3>Agus Wijaya</h3>
+            <div class="role">Sound Director</div>
+            <div class="bio">Arsitek lanskap suara dan scoring audio sinematik yang menghidupkan gambar.</div>
+          </div>
+        </div>
+
+        <div class="team-full-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="team-img-wrap"><img src="assets/img/team6.jpg" alt="Linda Sari" /></div>
+          <div class="team-body" style="flex-direction:column;align-items:flex-start;">
+            <h3>Linda Sari</h3>
+            <div class="role">Production Manager</div>
+            <div class="bio">Memastikan seluruh lini produksi berjalan efisien, on-budget dan on-schedule.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:48px;" data-aos="fade-up">
+        <button class="btn btn-ghost" onclick="showPage('home')">
+          <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================== WORKS PAGE ======================== -->
+<div id="works" class="page">
+  <section class="section" style="padding-top:calc(var(--header-h) + 40px);">
+    <div class="container">
+      <div class="section-header-center" data-aos="fade-up">
+        <span class="section-badge">Galeri Karya</span>
+        <h2 class="section-title">Semua Karya Kami</h2>
+        <p class="section-body">Filter berdasarkan kategori produksi</p>
+      </div>
+
+      <div class="filter-bar" data-aos="fade-up">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="film">Film</button>
+        <button class="filter-btn" data-filter="iklan">Iklan</button>
+        <button class="filter-btn" data-filter="music">Musik</button>
+        <button class="filter-btn" data-filter="corporate">Korporat</button>
+      </div>
+
+      <div class="works-grid" data-aos="fade-up">
+
+        <div class="work-card" data-category="film" onclick="openModal('https://www.youtube.com/embed/C2YTFcNKSQU')">
+          <div class="video-clean-wrapper">
+            <iframe src="https://www.youtube.com/embed/C2YTFcNKSQU?autoplay=1&mute=1&loop=1&playlist=C2YTFcNKSQU&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+          </div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-play"><i class="fas fa-play"></i></div>
+          <div class="portfolio-info"><span class="portfolio-cat">Film</span><h3>Film Pendek</h3></div>
+        </div>
+
+        <div class="work-card" data-category="iklan" onclick="openModal('https://www.youtube.com/embed/h1JDjiyoIM4')">
+          <div class="video-clean-wrapper">
+            <iframe src="https://www.youtube.com/embed/h1JDjiyoIM4?autoplay=1&mute=1&loop=1&playlist=h1JDjiyoIM4&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+          </div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-play"><i class="fas fa-play"></i></div>
+          <div class="portfolio-info"><span class="portfolio-cat">Iklan</span><h3>Iklan Komersial</h3></div>
+        </div>
+
+        <div class="work-card" data-category="music" onclick="openModal('https://www.youtube.com/embed/X4EKm8m0ReE')">
+          <div class="video-clean-wrapper">
+            <iframe src="https://www.youtube.com/embed/X4EKm8m0ReE?autoplay=1&mute=1&loop=1&playlist=X4EKm8m0ReE&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+          </div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-play"><i class="fas fa-play"></i></div>
+          <div class="portfolio-info"><span class="portfolio-cat">Musik</span><h3>Video Musik</h3></div>
+        </div>
+
+        <div class="work-card" data-category="corporate" onclick="openModal('https://www.youtube.com/embed/CBxgZxjdJyk')">
+          <div class="video-clean-wrapper">
+            <iframe src="https://www.youtube.com/embed/CBxgZxjdJyk?autoplay=1&mute=1&loop=1&playlist=CBxgZxjdJyk&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+          </div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-play"><i class="fas fa-play"></i></div>
+          <div class="portfolio-info"><span class="portfolio-cat">Korporat</span><h3>Profil Perusahaan</h3></div>
+        </div>
+
+        <div class="work-card" data-category="film" onclick="openModal('https://www.youtube.com/embed/mpKr_rGfNc0')">
+          <div class="video-clean-wrapper">
+            <iframe src="https://www.youtube.com/embed/mpKr_rGfNc0?autoplay=1&mute=1&loop=1&playlist=mpKr_rGfNc0&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+          </div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-play"><i class="fas fa-play"></i></div>
+          <div class="portfolio-info"><span class="portfolio-cat">Film</span><h3>Drama Sinematik</h3></div>
+        </div>
+
+        <div class="work-card" data-category="iklan" onclick="openModal('https://www.youtube.com/embed/b07W6BfVpBQ')">
+          <div class="video-clean-wrapper">
+            <iframe src="https://www.youtube.com/embed/b07W6BfVpBQ?autoplay=1&mute=1&loop=1&playlist=b07W6BfVpBQ&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1" allow="autoplay"></iframe>
+          </div>
+          <div class="portfolio-overlay"></div>
+          <div class="portfolio-play"><i class="fas fa-play"></i></div>
+          <div class="portfolio-info"><span class="portfolio-cat">Iklan</span><h3>Brand Campaign</h3></div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:48px;" data-aos="fade-up">
+        <button class="btn btn-ghost" onclick="showPage('home')">
+          <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- VIDEO MODAL -->
+<div id="video-modal" class="video-modal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-inner">
+    <div class="modal-reel">
+      <iframe id="modal-iframe" src="" title="CINEVIX Video Player" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    </div>
+    <button class="modal-close" id="close-modal-btn">&#215;</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="wordmark" onclick="showPage('home')" style="cursor:pointer;">
+          CINEVIX<em>.</em>
+          <small>House Production</small>
+        </div>
+        <p>Rumah produksi visual sinematik profesional berbasis di Malang, Jawa Timur. Dari konsep, syuting, hingga pasca-produksi.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a onclick="showPage('home')">Beranda</a></li>
+          <li><a onclick="showPage('team')">Tim Kreatif</a></li>
+          <li><a onclick="showPage('works')">Karya Kami</a></li>
+          <li><a onclick="goContact()">Hubungi Kami</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Kontak</h5>
+        <ul>
+          <li><a href="mailto:hello@cinevixworks.com">hello@cinevixworks.com</a></li>
+          <li><a href="https://wa.me/6281234567890" target="_blank">+62 812 3456 7890</a></li>
+          <li><a>Malang, Jawa Timur</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="footer-copy">&copy; 2024 CINEVIX House Production. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<!-- Scroll to Top -->
+<a href="#" id="scrollTopBtn" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
+</a>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
 </html>
