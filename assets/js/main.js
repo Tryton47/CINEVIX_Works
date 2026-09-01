@@ -46,16 +46,25 @@
   const menu = document.getElementById("mobile-nav");
   if (!btn || !menu) return;
 
+  function setMenuState(open) {
+    menu.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    const icon = btn.querySelector("i");
+    if (icon) icon.className = open ? "fas fa-times" : "fas fa-bars";
+  }
+
   btn.addEventListener("click", () => {
-    const open = menu.classList.toggle("open");
-    btn.querySelector("i").className = open ? "fas fa-times" : "fas fa-bars";
+    const isOpen = menu.classList.contains("open");
+    setMenuState(!isOpen);
   });
+
   document.addEventListener("click", (e) => {
-    if (!btn.contains(e.target) && !menu.contains(e.target)) {
-      menu.classList.remove("open");
-      btn.querySelector("i").className = "fas fa-bars";
+    if (!btn.contains(e.target) && !menu.contains(e.target) && menu.classList.contains("open")) {
+      setMenuState(false);
     }
   });
+
+  window.closeMobileNav = () => setMenuState(false);
 })();
 
 /* ============================================================
