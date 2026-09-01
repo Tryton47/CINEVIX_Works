@@ -24,25 +24,24 @@ cinevix web/
 - [Swiper.js](https://swiperjs.com/) — Slider/Carousel
 - [AOS](https://michaeloryl.github.io/animate-on-scroll/) — Animasi scroll
 - [Font Awesome](https://fontawesome.com/) — Ikon
-- [Google Fonts](https://fonts.google.com/) — Tipografi (Poppins, Inter)
+- [Google Fonts](https://fonts.google.com/) — Tipografi Sinematik (Bebas Neue, Outfit, Plus Jakarta Sans)
 
-## Fitur
+## Fitur Unggulan
 
-- ✅ Desain dark mode premium dengan glassmorphism
-- ✅ Animasi slide interaktif (Coverflow & Cards effect)
-- ✅ Video background pada portfolio & karya
-- ✅ Filter karya berdasarkan kategori
-- ✅ Page loader animasi
-- ✅ Smooth transitions antar halaman
-- ✅ Fully responsive (mobile-first)
-- ✅ Marquee klien otomatis
+- 🎬 **Cinematic Studio Aesthetic** (A24 / Legendary Inspired)
+- 🎞️ **Analog Film Grain Overlay & Viewfinder Corners**
+- 📱 **100% Fluid & Responsive** (Mobile, Tablet, Desktop, 4K)
+- ⚡ **Seamless Video Reels** (Loop background tanpa logo YouTube / anti-pause)
+- 💬 **Direct WhatsApp Quick Connect** & Interactive Contact Form
+- 👥 **Team Roster & Dynamic Work Filters**
+- 🌟 **GPU-Accelerated Micro-Animations & 3D Tilt**
 
-## Kontak
+## Kontak Studio
 
-📍 Jl. Soekarno-Hatta No.99, Malang, Indonesia  
+📍 Jl. Soekarno-Hatta No.99, Malang, Jawa Timur, Indonesia  
 📧 hello@cinevixworks.com  
-📱 +62 21 1234 5678
+📱 +62 812 3456 7890
 
 ---
 
-© 2024 CINEVIX House Production. Hak Cipta Dilindungi.
+© 2024 CINEVIX House Production. All Rights Reserved.
