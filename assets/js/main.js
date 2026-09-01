@@ -152,11 +152,12 @@ window.goContact = function () {
     centeredSlides: true,
     loop: true,
     slidesPerView: "auto",
+    spaceBetween: 20,
     coverflowEffect: {
-      rotate: 24,
+      rotate: 20,
       stretch: 0,
-      depth: 100,
-      modifier: 1.2,
+      depth: 90,
+      modifier: 1.1,
       slideShadows: false,
     },
     autoplay: {

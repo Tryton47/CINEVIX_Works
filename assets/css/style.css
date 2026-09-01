@@ -646,10 +646,15 @@ body::before {
 
 /* ============ PORTFOLIO / SWIPER ============ */
 .portfolio-swiper {
-  padding-bottom: 52px !important;
+  padding-bottom: 56px !important;
   overflow: visible !important;
 }
-.portfolio-swiper .swiper-slide { border-radius: var(--radius-lg); overflow: hidden; }
+.portfolio-swiper .swiper-slide {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  width: clamp(280px, 78vw, 440px);
+  max-width: 90vw;
+}
 
 .portfolio-card {
   position: relative;
