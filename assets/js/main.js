@@ -1,26 +1,29 @@
 /**
- * CINEVIX Works — main.js v3
- * Cinematic Studio Interactive Features
+ * CINEVIX Works — main.js v3.2
+ * Clean, fast, and rock-solid interactive logic
  */
 
 /* ============================================================
-   PAGE LOADER
+   PAGE LOADER (Fast fadeout, no delay freeze)
    ============================================================ */
 (function initLoader() {
   const loader = document.getElementById("page-loader");
   if (!loader) return;
-  window.addEventListener("load", () => {
-    setTimeout(() => loader.classList.add("hidden"), 1800);
-  });
+  const hide = () => loader.classList.add("hidden");
+  if (document.readyState === "complete") {
+    setTimeout(hide, 200);
+  } else {
+    window.addEventListener("load", () => setTimeout(hide, 200));
+  }
 })();
 
 /* ============================================================
-   HEADER: Scroll Effect + Transparent On Top
+   HEADER: Scroll Effect
    ============================================================ */
 (function initHeader() {
   const header = document.getElementById("site-header");
   if (!header) return;
-  const update = () => header.classList.toggle("scrolled", window.scrollY > 60);
+  const update = () => header.classList.toggle("scrolled", window.scrollY > 40);
   window.addEventListener("scroll", update, { passive: true });
   update();
 })();
@@ -77,21 +80,18 @@ const PageRouter = (function () {
 
   function showPage(pageId) {
     if (pageId === current) {
-      // Same page — scroll to top
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
     current = pageId;
 
     pages.forEach(p => {
-      p.classList.remove("active", "entering");
+      p.classList.remove("active");
     });
 
     const target = document.getElementById(pageId);
     if (!target) return;
     target.classList.add("active");
-    void target.offsetWidth; // reflow
-    target.classList.add("entering");
 
     navLinks.forEach(l => {
       l.classList.toggle("active", l.dataset.page === pageId);
@@ -99,11 +99,8 @@ const PageRouter = (function () {
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    // Close mobile menu
-    const mobileNav = document.getElementById("mobile-nav");
-    const mobileBtn = document.getElementById("mobile-menu-btn");
-    if (mobileNav) mobileNav.classList.remove("open");
-    if (mobileBtn) mobileBtn.querySelector("i").className = "fas fa-bars";
+    // Close mobile menu if open
+    if (window.closeMobileNav) window.closeMobileNav();
   }
 
   navLinks.forEach(link => {
@@ -119,7 +116,7 @@ const PageRouter = (function () {
 
 window.showPage = (id) => PageRouter.showPage(id);
 
-// Navigate to contact section on home page
+// Navigate to contact section
 window.goContact = function () {
   PageRouter.showPage("home");
   setTimeout(() => {
@@ -129,20 +126,20 @@ window.goContact = function () {
 };
 
 /* ============================================================
-   AOS (Scroll Reveal Animations)
+   AOS (Scroll Reveal)
    ============================================================ */
 (function initAOS() {
   if (typeof AOS === "undefined") return;
   AOS.init({
-    duration: 750,
+    duration: 650,
     once: true,
-    offset: 60,
-    easing: "ease-out-quart",
+    offset: 50,
+    easing: "ease-out-cubic",
   });
 })();
 
 /* ============================================================
-   SWIPER — PORTFOLIO (Coverflow Effect)
+   SWIPER — PORTFOLIO
    ============================================================ */
 (function initPortfolioSwiper() {
   if (typeof Swiper === "undefined") return;
@@ -152,11 +149,11 @@ window.goContact = function () {
     centeredSlides: true,
     loop: true,
     slidesPerView: "auto",
-    spaceBetween: 20,
+    spaceBetween: 24,
     coverflowEffect: {
-      rotate: 20,
+      rotate: 15,
       stretch: 0,
-      depth: 90,
+      depth: 80,
       modifier: 1.1,
       slideShadows: false,
     },
@@ -184,12 +181,11 @@ window.goContact = function () {
   if (typeof Swiper === "undefined") return;
   new Swiper(".team-swiper", {
     grabCursor: true,
-    centeredSlides: true,
     loop: true,
     spaceBetween: 24,
     slidesPerView: 1,
     autoplay: {
-      delay: 3800,
+      delay: 3500,
       disableOnInteraction: false,
       pauseOnMouseEnter: true,
     },
@@ -205,7 +201,7 @@ window.goContact = function () {
     breakpoints: {
       600:  { slidesPerView: 2, spaceBetween: 20 },
       900:  { slidesPerView: 3, spaceBetween: 24 },
-      1200: { slidesPerView: 4, spaceBetween: 28 },
+      1200: { slidesPerView: 4, spaceBetween: 24 },
     },
   });
 })();
@@ -224,24 +220,9 @@ window.goContact = function () {
       btn.classList.add("active");
 
       const filter = btn.dataset.filter;
-      workCards.forEach((card, i) => {
+      workCards.forEach((card) => {
         const show = filter === "all" || card.dataset.category === filter;
-        const delay = i * 40;
-
-        if (show) {
-          card.style.display = "";
-          card.style.transition = `opacity 0.35s ease ${delay}ms, transform 0.35s ease ${delay}ms`;
-          requestAnimationFrame(() => {
-            card.style.opacity = "1";
-            card.style.transform = "";
-          });
-        } else {
-          card.style.opacity = "0";
-          card.style.transform = "scale(0.92)";
-          setTimeout(() => {
-            if (card.style.opacity === "0") card.style.display = "none";
-          }, 380);
-        }
+        card.style.display = show ? "" : "none";
       });
     });
   });
@@ -282,7 +263,7 @@ window.goContact = function () {
   const btn = document.getElementById("scrollTopBtn");
   if (!btn) return;
   window.addEventListener("scroll", () => {
-    btn.classList.toggle("visible", window.scrollY > 400);
+    btn.classList.toggle("visible", window.scrollY > 350);
   }, { passive: true });
   btn.addEventListener("click", e => {
     e.preventDefault();
@@ -304,34 +285,17 @@ window.goContact = function () {
       const target = parseInt(el.dataset.count, 10);
       const suffix = el.dataset.suffix || "";
       let start    = 0;
-      const inc    = target / (1600 / 16);
+      const inc    = target / 60;
       const timer  = setInterval(() => {
         start = Math.min(start + inc, target);
         el.textContent = Math.floor(start) + suffix;
         if (start >= target) clearInterval(timer);
-      }, 16);
+      }, 20);
       obs.unobserve(el);
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.3 });
 
   counters.forEach(c => obs.observe(c));
-})();
-
-/* ============================================================
-   PARALLAX: Hero Section
-   ============================================================ */
-(function initParallax() {
-  const heroText   = document.querySelector(".hero-text");
-  const heroVisual = document.querySelector(".hero-visual");
-
-  function onScroll() {
-    const y = window.scrollY;
-    if (y > 800) return;
-    if (heroText)   heroText.style.transform   = `translateY(${y * 0.07}px)`;
-    if (heroVisual) heroVisual.style.transform = `translateY(${y * 0.12}px)`;
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
 })();
 
 /* ============================================================
@@ -351,23 +315,5 @@ window.goContact = function () {
       `Halo CINEVIX! 🎬\n\nNama: ${name}\nEmail: ${email}\nJenis Proyek: ${subject}\n\nDetail:\n${message}`
     );
     window.open(`https://wa.me/6281234567890?text=${text}`, "_blank");
-  });
-})();
-
-/* ============================================================
-   3D TILT — Cards
-   ============================================================ */
-(function initTilt() {
-  const cards = document.querySelectorAll(".feature-card, .team-card, .team-full-card");
-  cards.forEach(card => {
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width  - 0.5;
-      const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transform = `perspective(800px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg) translateY(-4px)`;
-    });
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
-    });
   });
 })();
