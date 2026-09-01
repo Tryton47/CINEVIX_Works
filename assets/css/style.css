@@ -593,11 +593,17 @@ body::before {
 .about-label::before { content: ""; display: block; width: 20px; height: 1px; background: var(--amber); }
 
 /* Feature cards */
-.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(8px, 1.5vw, 14px);
+}
 .feature-card {
   background: var(--surface);
-  padding: clamp(24px, 4vw, 32px) clamp(20px, 3vw, 28px);
-  transition: background var(--t-fast);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: clamp(24px, 3.5vw, 32px) clamp(20px, 3vw, 28px);
+  transition: all var(--t-normal) var(--ease-out);
   position: relative;
   overflow: hidden;
 }
@@ -609,23 +615,34 @@ body::before {
   background: var(--amber);
   transition: width var(--t-normal) var(--ease-out);
 }
-.feature-card:hover { background: var(--surface-raise); }
+.feature-card:hover {
+  background: var(--surface-raise);
+  border-color: var(--border-amber);
+  transform: translateY(-4px);
+}
 .feature-card:hover::before { width: 100%; }
 
 .feature-number {
   font-family: var(--font-display);
-  font-size: clamp(34px, 4vw, 42px); letter-spacing: 1px;
+  font-size: clamp(32px, 4vw, 42px);
+  letter-spacing: 1px;
   color: var(--surface-high);
   margin-bottom: 10px;
   transition: color var(--t-fast);
 }
-.feature-card:hover .feature-number { color: var(--amber-dim); }
+.feature-card:hover .feature-number { color: var(--amber); }
 .feature-card h4 {
   font-family: var(--font-heading);
-  font-size: 16px; font-weight: 700;
-  color: var(--text-bright); margin-bottom: 6px;
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 6px;
 }
-.feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.feature-card p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
 
 /* ============ PORTFOLIO / SWIPER ============ */
 .portfolio-swiper {
