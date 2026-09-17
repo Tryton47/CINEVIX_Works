@@ -208,7 +208,7 @@ window.goContact = function () {
 })();
 
 /* ============================================================
-   WORKS FILTER
+   WORKS FILTER (Smooth transition)
    ============================================================ */
 (function initWorkFilter() {
   const filterBtns = document.querySelectorAll(".filter-btn");
@@ -223,8 +223,41 @@ window.goContact = function () {
       const filter = btn.dataset.filter;
       workCards.forEach((card) => {
         const show = filter === "all" || card.dataset.category === filter;
-        card.style.display = show ? "" : "none";
+        if (show) {
+          card.style.display = "";
+          setTimeout(() => {
+            card.style.opacity = "1";
+            card.style.transform = "scale(1)";
+          }, 15);
+        } else {
+          card.style.opacity = "0";
+          card.style.transform = "scale(0.96)";
+          setTimeout(() => {
+            if (btn.dataset.filter !== "all" && card.dataset.category !== btn.dataset.filter) {
+              card.style.display = "none";
+            }
+          }, 250);
+        }
       });
+    });
+  });
+})();
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+(function initFAQ() {
+  const faqItems = document.querySelectorAll(".faq-item");
+  if (!faqItems.length) return;
+
+  faqItems.forEach(item => {
+    const btn = item.querySelector(".faq-question");
+    btn?.addEventListener("click", () => {
+      const isOpen = item.classList.contains("active");
+      faqItems.forEach(i => i.classList.remove("active"));
+      if (!isOpen) {
+        item.classList.add("active");
+      }
     });
   });
 })();
@@ -300,20 +333,38 @@ window.goContact = function () {
 })();
 
 /* ============================================================
-   CONTACT FORM → WhatsApp
+   CONTACT FORM & PROJECT CHIPS → WhatsApp
    ============================================================ */
 (function initContactForm() {
   const form = document.getElementById("contact-form");
+  const chips = document.querySelectorAll(".cf-chip");
+  const projectTypeInput = document.getElementById("project_type_input");
+
+  if (chips.length && projectTypeInput) {
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        projectTypeInput.value = chip.dataset.type || chip.textContent.trim();
+      });
+    });
+  }
+
   if (!form) return;
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name    = form.querySelector("[name='name']")?.value || "";
-    const email   = form.querySelector("[name='email']")?.value || "";
-    const subject = form.querySelector("[name='subject']")?.value || "";
+    const name = form.querySelector("[name='name']")?.value || "";
+    const contactInfo = form.querySelector("[name='contact_info']")?.value || "";
+    const projectType = projectTypeInput?.value || "Film / Iklan";
     const message = form.querySelector("[name='message']")?.value || "";
 
     const text = encodeURIComponent(
-      `Halo CINEVIX! 🎬\n\nNama: ${name}\nEmail: ${email}\nJenis Proyek: ${subject}\n\nDetail:\n${message}`
+      `Halo CINEVIX Production! 🎬\n\n` +
+      `*Nama / Brand:* ${name}\n` +
+      `*Kontak:* ${contactInfo}\n` +
+      `*Kategori Karya:* ${projectType}\n\n` +
+      `*Detail Rencana Proyek:*\n${message}\n\n` +
+      `Mohon info estimasi konsep dan jadwal diskusi. Terima kasih!`
     );
     window.open(`https://wa.me/6281234567890?text=${text}`, "_blank");
   });
