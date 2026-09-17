@@ -1360,20 +1360,26 @@ a {
   padding: 24px;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 .video-modal.active { opacity: 1; visibility: visible; }
 .modal-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(4, 5, 8, 0.95);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .modal-inner {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 880px;
+  max-width: 920px;
+  transform: scale(0.92) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.video-modal.active .modal-inner {
+  transform: scale(1) translateY(0);
 }
 .modal-reel {
   position: relative;
@@ -1382,7 +1388,7 @@ a {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border-amber);
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 60px rgba(232, 150, 42, 0.25), 0 35px 90px rgba(0, 0, 0, 0.95);
 }
 .modal-reel iframe {
   position: absolute;
@@ -1394,23 +1400,24 @@ a {
 .modal-close {
   position: absolute;
   top: -16px; right: -16px;
-  width: 40px; height: 40px;
+  width: 42px; height: 42px;
   border-radius: 50%;
   background: var(--amber);
-  border: none;
+  border: 2px solid #08090C;
   color: #08090C;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 20px rgba(232, 150, 42, 0.4);
   z-index: 2;
 }
 .modal-close:hover {
   background: var(--amber-bright);
-  transform: scale(1.1);
+  transform: scale(1.12) rotate(90deg);
 }
 
 /* ============ FOOTER ============ */
