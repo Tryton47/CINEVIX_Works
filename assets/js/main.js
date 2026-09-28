@@ -765,6 +765,67 @@ document.addEventListener('click', (e) => {
   });
 })();
 
+/* ============ 3D PERSPECTIVE TILT ============ */
+(function init3DTilt() {
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  const tiltElements = document.querySelectorAll('.bts-card, .portfolio-card, .feature-card');
+
+  tiltElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+      el.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+      el.style.transform = '';
+      setTimeout(() => { el.style.transition = ''; }, 450);
+    });
+  });
+})();
+
+/* ============ GSAP SCROLLTRIGGER REVEALS ============ */
+(function initGSAPEffects() {
+  if (typeof gsap === 'undefined') return;
+  if (typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Parallax hero ambient glow
+    gsap.to('.hero-ambient', {
+      y: 120,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2
+      }
+    });
+
+    // Kinetic Section Titles subtle entrance
+    gsap.utils.toArray('.section-title').forEach(title => {
+      gsap.from(title, {
+        y: 24,
+        opacity: 0.2,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: title,
+          start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+  }
+})();
+
+
 
 
 
