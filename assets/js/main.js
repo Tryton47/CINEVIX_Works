@@ -500,10 +500,57 @@ window.goContact = function () {
   const cards = document.querySelectorAll('.service-card-wrap');
   cards.forEach(card => {
     card.addEventListener('click', (e) => {
-      // Don't toggle if clicking the CTA button inside the back card
       if (e.target.closest('.btn')) return;
       card.classList.toggle('flipped');
     });
   });
 })();
+
+/* ============ ANIMATED STAT COUNTERS ============ */
+(function initStatCounters() {
+  const statElements = document.querySelectorAll('.stat-n[data-count]');
+  if (!statElements.length) return;
+
+  function easeOutCubic(x) {
+    return 1 - Math.pow(1 - x, 3);
+  }
+
+  function runCounter(el) {
+    const target = parseInt(el.getAttribute('data-count'), 10) || 0;
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 2000;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutCubic(progress);
+      const current = Math.floor(eased * target);
+
+      el.textContent = current + suffix;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target + suffix;
+        el.style.transform = 'scale(1.08)';
+        setTimeout(() => { el.style.transform = ''; }, 300);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runCounter(entry.target);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  statElements.forEach(el => observer.observe(el));
+})();
+
 
