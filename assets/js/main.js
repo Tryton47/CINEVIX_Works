@@ -712,5 +712,59 @@ document.addEventListener('click', (e) => {
   });
 })();
 
+/* ============ BEHIND THE SCENES & LIGHTBOX ============ */
+(function initBTSAndLightbox() {
+  const filterBtns = document.querySelectorAll('.bts-filter-btn');
+  const cards = document.querySelectorAll('.bts-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category') || '';
+        if (filter === 'all' || cat.includes(filter)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  const lightbox = document.getElementById('bts-lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxDesc = document.getElementById('lightbox-desc');
+
+  window.openLightbox = function(src, title, desc) {
+    if (!lightbox || !lightboxImg) return;
+    lightboxImg.src = src;
+    if (lightboxTitle) lightboxTitle.textContent = title || 'Behind The Scenes';
+    if (lightboxDesc) lightboxDesc.textContent = desc || '';
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    if (window.SoundEngine) window.SoundEngine.playSwoosh();
+  };
+
+  window.closeLightbox = function() {
+    if (!lightbox) return;
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (lightboxImg) lightboxImg.src = '';
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox && lightbox.classList.contains('active')) {
+      window.closeLightbox();
+    }
+  });
+})();
+
+
 
 
