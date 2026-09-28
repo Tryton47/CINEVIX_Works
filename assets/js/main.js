@@ -1,7 +1,63 @@
 /**
- * CINEVIX Works — main.js v3.2
- * Clean, fast, and rock-solid interactive logic
+ * CINEVIX Works — main.js v6.0
+ * Phase 1: Custom Cursor, Film Grain, Services, Magnetic, Showreel, Theme, BTS, GSAP
  */
+
+/* ============================================================
+   CUSTOM CINEMATIC CURSOR
+   ============================================================ */
+(function initCustomCursor() {
+  const dot  = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
+  if (!dot || !ring) return;
+
+  // Check if touch device
+  if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
+
+  let mouseX = 0, mouseY = 0;
+  let ringX  = 0, ringY  = 0;
+  let rafId;
+
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = mouseX + "px";
+    dot.style.top  = mouseY + "px";
+  }, { passive: true });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.1;
+    ringY += (mouseY - ringY) * 0.1;
+    ring.style.left = ringX + "px";
+    ring.style.top  = ringY + "px";
+    rafId = requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover state
+  const hoverTargets = "a, button, [onclick], .portfolio-card, .team-card, .faq-question, .cf-chip, .filter-btn, .swiper-button-next, .swiper-button-prev, .nav-link, .footer-social-btn, .service-card";
+  document.addEventListener("mouseover", (e) => {
+    if (e.target.closest(hoverTargets)) {
+      dot.classList.add("hovered");
+      ring.classList.add("hovered");
+    }
+  });
+  document.addEventListener("mouseout", (e) => {
+    if (e.target.closest(hoverTargets)) {
+      dot.classList.remove("hovered");
+      ring.classList.remove("hovered");
+    }
+  });
+
+  // Click state
+  document.addEventListener("mousedown", () => { dot.classList.add("clicking"); ring.classList.add("clicking"); });
+  document.addEventListener("mouseup",   () => { dot.classList.remove("clicking"); ring.classList.remove("clicking"); });
+
+  // Hide when leaving window
+  document.addEventListener("mouseleave", () => { dot.style.opacity = "0"; ring.style.opacity = "0"; });
+  document.addEventListener("mouseenter", () => { dot.style.opacity = "1"; ring.style.opacity = "1"; });
+})();
+
 
 /* ============================================================
    PAGE LOADER (Fast fadeout, no delay freeze)

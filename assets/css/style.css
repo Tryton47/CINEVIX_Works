@@ -36,6 +36,68 @@
   --header-h: 76px;
   --container: 1200px;
   --gap-base: 24px;
+
+  /* SEPIA THEME OVERRIDES (toggled via .theme-sepia on body) */
+  --sepia-void:    #1A1208;
+  --sepia-bg:      #221A0E;
+  --sepia-surface: #2A1F10;
+  --sepia-text:    #D4B896;
+  --sepia-muted:   #8A7060;
+}
+
+/* ============ CUSTOM CURSOR ============ */
+* { cursor: none !important; }
+
+#cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  mix-blend-mode: normal;
+  box-shadow: 0 0 10px var(--amber-glow);
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(232, 150, 42, 0.55);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease, opacity 0.3s ease;
+}
+
+#cursor-dot.hovered {
+  width: 6px;
+  height: 6px;
+  background: var(--amber-bright);
+}
+
+#cursor-ring.hovered {
+  width: 56px;
+  height: 56px;
+  border-color: var(--amber);
+  border-width: 1px;
+}
+
+#cursor-dot.clicking {
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+#cursor-ring.clicking {
+  transform: translate(-50%, -50%) scale(0.85);
+}
+
+@media (hover: none), (pointer: coarse) {
+  * { cursor: auto !important; }
+  #cursor-dot, #cursor-ring { display: none !important; }
 }
 
 /* ============ RESET ============ */

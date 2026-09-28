@@ -27,6 +27,10 @@
 </head>
 <body>
 
+<!-- CUSTOM CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
 <!-- SCROLL PROGRESS -->
 <div id="scroll-progress"></div>
 
@@ -65,9 +69,14 @@
         </button>
       </nav>
 
-      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Buka Menu" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-      </button>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="theme-switcher-btn" id="theme-switcher-btn" aria-label="Toggle tema">
+          <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Buka Menu" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
     </div>
   </div>
 
