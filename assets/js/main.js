@@ -494,3 +494,16 @@ window.goContact = function () {
     });
   });
 })();
+
+/* ============ 3D SERVICE CARDS TOUCH/CLICK TOGGLE ============ */
+(function initServiceCards() {
+  const cards = document.querySelectorAll('.service-card-wrap');
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Don't toggle if clicking the CTA button inside the back card
+      if (e.target.closest('.btn')) return;
+      card.classList.toggle('flipped');
+    });
+  });
+})();
+

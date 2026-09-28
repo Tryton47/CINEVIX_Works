@@ -781,6 +781,164 @@ body.theme-sepia .footer {
   line-height: 1.6;
 }
 
+/* ============ SERVICES / 3D FLIP CARDS ============ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.service-card-wrap {
+  perspective: 1100px;
+  min-height: 320px;
+}
+
+.service-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.2, 0.85, 0.4, 1.2);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+}
+
+.service-card-wrap:hover .service-card,
+.service-card-wrap.flipped .service-card {
+  transform: rotateY(180deg);
+}
+
+.service-front,
+.service-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-front {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card-wrap:hover .service-front {
+  border-color: var(--border-amber);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(232, 150, 42, 0.12);
+}
+
+.service-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  background: rgba(232, 150, 42, 0.1);
+  border: 1px solid var(--border-amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--amber);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.service-card-wrap:hover .service-icon-wrap {
+  transform: scale(1.1);
+  background: rgba(232, 150, 42, 0.2);
+}
+
+.service-front h3 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 10px;
+}
+
+.service-front p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.service-hover-hint {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--amber);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+  margin-top: auto;
+  padding-top: 16px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.service-card-wrap:hover .service-hover-hint {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.service-back {
+  background: linear-gradient(145deg, var(--surface-high) 0%, var(--surface) 100%);
+  border: 1px solid var(--border-amber);
+  transform: rotateY(180deg);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(232, 150, 42, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.service-back h4 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-back ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.service-back li {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  line-height: 1.4;
+}
+
+.service-back li i {
+  color: var(--amber);
+  font-size: 12px;
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.service-back .btn {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
 /* ============ PORTFOLIO / SWIPER ============ */
 .portfolio-swiper {
   width: 100%;
