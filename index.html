@@ -163,6 +163,17 @@
                 allow="autoplay; encrypted-media"
               ></iframe>
             </div>
+
+            <!-- Fullscreen Play Trigger -->
+            <div class="reel-play-overlay" onclick="openCinemaModal('CiEdzvwecFg', 'CINEVIX — Official Showreel 2024')">
+              <div class="reel-play-circle">
+                <i class="fas fa-play"></i>
+              </div>
+              <div class="reel-play-meta">
+                <span class="reel-play-title">Putar Teater Layar Penuh</span>
+                <span class="reel-play-sub"><i class="fas fa-volume-up"></i> Suara Sinema Penuh 4K</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1067,6 +1078,29 @@
     </div>
   </div>
 </footer>
+
+<!-- CINEMA VIDEO MODAL -->
+<div id="cinema-modal" class="cinema-modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="cinema-modal-backdrop" onclick="closeCinemaModal()"></div>
+  <div class="cinema-modal-container">
+    <div class="cinema-modal-header">
+      <div class="cinema-modal-title">
+        <i class="fas fa-film text-amber"></i> <span id="modal-video-title">CINEVIX Showreel</span>
+      </div>
+      <button class="cinema-modal-close" onclick="closeCinemaModal()" aria-label="Tutup Video">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="cinema-modal-screen">
+      <div class="cinema-ambient-glow" id="modal-ambient-glow"></div>
+      <iframe id="cinema-iframe" src="" title="Cinema Player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="cinema-modal-footer">
+      <span><i class="fas fa-headphones text-amber"></i> Rekomendasi: Gunakan headphone untuk pengalaman audio sinema terbaik</span>
+      <span class="esc-hint">Tekan [ESC] untuk menutup</span>
+    </div>
+  </div>
+</div>
 
 <!-- Scroll to Top -->
 <a href="#" id="scrollTopBtn" aria-label="Scroll to top">

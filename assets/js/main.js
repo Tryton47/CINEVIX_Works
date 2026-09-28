@@ -553,4 +553,55 @@ window.goContact = function () {
   statElements.forEach(el => observer.observe(el));
 })();
 
+/* ============ CINEMA VIDEO MODAL CONTROLLER ============ */
+(function initCinemaModal() {
+  const modal = document.getElementById('cinema-modal');
+  const iframe = document.getElementById('cinema-iframe');
+  const titleEl = document.getElementById('modal-video-title');
+  if (!modal || !iframe) return;
+
+  window.openCinemaModal = function (srcOrId, title) {
+    let embedUrl = srcOrId || '';
+    if (!embedUrl.startsWith('http')) {
+      // It's a YouTube ID
+      embedUrl = `https://www.youtube.com/embed/${srcOrId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+    } else {
+      // Append autoplay if not present
+      const separator = embedUrl.includes('?') ? '&' : '?';
+      if (!embedUrl.includes('autoplay=1')) {
+        embedUrl += `${separator}autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+      }
+    }
+
+    if (titleEl) {
+      titleEl.textContent = title || 'CINEVIX Cinematic Screening';
+    }
+
+    iframe.src = embedUrl;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  };
+
+  window.closeCinemaModal = function () {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    iframe.src = '';
+    document.body.classList.remove('modal-open');
+  };
+
+  // Backwards compatibility with openModal calls
+  window.openModal = function (url) {
+    window.openCinemaModal(url, 'Karya Unggulan CINEVIX');
+  };
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      window.closeCinemaModal();
+    }
+  });
+})();
+
+
 
