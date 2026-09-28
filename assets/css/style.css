@@ -45,6 +45,54 @@
   --sepia-muted:   #8A7060;
 }
 
+/* ============ SEPIA VINTAGE FILM THEME ============ */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.theme-sepia {
+  --void: #130f0a;
+  --surface: #1e1711;
+  --surface-high: #2a2017;
+  --border: rgba(212, 168, 120, 0.18);
+  --border-amber: rgba(232, 150, 42, 0.45);
+  --amber: #e59739;
+  --amber-bright: #ffb356;
+  --text-bright: #f7ede2;
+  --text-muted: #baa591;
+  --text-dim: #7f6d5c;
+  background-color: var(--void);
+}
+
+/* Sound & Theme Buttons in Header */
+.sound-toggle-btn,
+.theme-switcher-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sound-toggle-btn:hover,
+.theme-switcher-btn:hover {
+  background: rgba(232, 150, 42, 0.15);
+  border-color: var(--amber);
+  transform: scale(1.08);
+}
+
+.sound-toggle-btn.muted {
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
 /* ============ CUSTOM CURSOR ============ */
 * { cursor: none !important; }
 

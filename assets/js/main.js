@@ -457,21 +457,130 @@ window.goContact = function () {
 })();
 
 /* ============================================================
-   THEME SWITCHER (Commit 2)
+   CINEMATIC SOUND FX ENGINE (Web Audio API Synthesizer)
    ============================================================ */
-(function initThemeSwitcher() {
-  var btn = document.getElementById('theme-switcher-btn');
-  var icon = document.getElementById('theme-icon');
-  if (!btn) return;
-  var saved = localStorage.getItem('cinevix-theme') || 'dark';
-  if (saved === 'sepia') { document.body.classList.add('theme-sepia'); if(icon) icon.className='fas fa-sun'; }
-  btn.addEventListener('click', function() {
-    var isSepia = document.body.classList.toggle('theme-sepia');
-    localStorage.setItem('cinevix-theme', isSepia ? 'sepia' : 'dark');
-    if(icon) icon.className = isSepia ? 'fas fa-sun' : 'fas fa-moon';
-    btn.style.transform = 'rotate(20deg) scale(0.9)';
-    setTimeout(function(){ btn.style.transform=''; }, 200);
-  });
+const SoundEngine = (function() {
+  let ctx = null;
+  let enabled = localStorage.getItem('cinevix-sound') !== 'false';
+
+  function getCtx() {
+    if (!ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) ctx = new AudioCtx();
+    }
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume();
+    }
+    return ctx;
+  }
+
+  function playClick() {
+    if (!enabled) return;
+    try {
+      const c = getCtx();
+      if (!c) return;
+      const osc = c.createOscillator();
+      const gain = c.createGain();
+      const t = c.currentTime;
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(580, t);
+      osc.frequency.exponentialRampToValueAtTime(140, t + 0.04);
+      gain.gain.setValueAtTime(0.07, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+      osc.connect(gain);
+      gain.connect(c.destination);
+      osc.start(t);
+      osc.stop(t + 0.04);
+    } catch (e) {}
+  }
+
+  function playSwoosh() {
+    if (!enabled) return;
+    try {
+      const c = getCtx();
+      if (!c) return;
+      const bufferSize = Math.floor(c.sampleRate * 0.12);
+      const buffer = c.createBuffer(1, bufferSize, c.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (c.sampleRate * 0.035));
+      }
+      const noise = c.createBufferSource();
+      noise.buffer = buffer;
+      const filter = c.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(900, c.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(160, c.currentTime + 0.12);
+      const gain = c.createGain();
+      gain.gain.setValueAtTime(0.05, c.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.12);
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(c.destination);
+      noise.start();
+    } catch (e) {}
+  }
+
+  function toggle() {
+    enabled = !enabled;
+    localStorage.setItem('cinevix-sound', enabled ? 'true' : 'false');
+    if (enabled) playClick();
+    return enabled;
+  }
+
+  function isEnabled() { return enabled; }
+
+  return { playClick, playSwoosh, toggle, isEnabled };
+})();
+
+// Attach click sound to interactive buttons
+document.addEventListener('click', (e) => {
+  if (e.target.closest('button, .btn, .nav-link, .cf-chip, .filter-btn, .portfolio-card, .service-card-wrap')) {
+    SoundEngine.playClick();
+  }
+});
+
+/* ============================================================
+   THEME SWITCHER & SOUND TOGGLE (Commit 6)
+   ============================================================ */
+(function initThemeAndSoundControls() {
+  const themeBtn = document.getElementById('theme-switcher-btn');
+  const themeIcon = document.getElementById('theme-icon');
+  const soundBtn = document.getElementById('sound-toggle-btn');
+  const soundIcon = document.getElementById('sound-icon');
+
+  // Initialize theme
+  const savedTheme = localStorage.getItem('cinevix-theme') || 'dark';
+  if (savedTheme === 'sepia') {
+    document.body.classList.add('theme-sepia');
+    if (themeIcon) themeIcon.className = 'fas fa-sun';
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const isSepia = document.body.classList.toggle('theme-sepia');
+      localStorage.setItem('cinevix-theme', isSepia ? 'sepia' : 'dark');
+      if (themeIcon) themeIcon.className = isSepia ? 'fas fa-sun' : 'fas fa-moon';
+      SoundEngine.playSwoosh();
+      themeBtn.style.transform = 'rotate(35deg) scale(0.92)';
+      setTimeout(() => { themeBtn.style.transform = ''; }, 220);
+    });
+  }
+
+  // Initialize sound button
+  if (soundBtn && soundIcon) {
+    const isSoundOn = SoundEngine.isEnabled();
+    soundIcon.className = isSoundOn ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+    soundBtn.classList.toggle('muted', !isSoundOn);
+
+    soundBtn.addEventListener('click', () => {
+      const active = SoundEngine.toggle();
+      soundIcon.className = active ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+      soundBtn.classList.toggle('muted', !active);
+      soundBtn.style.transform = 'scale(0.88)';
+      setTimeout(() => { soundBtn.style.transform = ''; }, 200);
+    });
+  }
 })();
 
 /* ============================================================
