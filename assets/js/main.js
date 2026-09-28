@@ -425,3 +425,72 @@ window.goContact = function () {
     window.open(`https://wa.me/6281234567890?text=${text}`, "_blank");
   });
 })();
+
+/* ============================================================
+   HERO PARTICLE CANVAS (Commit 2)
+   ============================================================ */
+(function initHeroParticles() {
+  var canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [];
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  function createParticles(count) {
+    particles = [];
+    for (var i = 0; i < count; i++) {
+      particles.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.2+0.2, speed: Math.random()*0.35+0.08, drift: (Math.random()-0.5)*0.2, opacity: Math.random()*0.5+0.1 });
+    }
+  }
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(function(p) {
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(232,150,42,'+p.opacity+')'; ctx.fill();
+      p.y-=p.speed; p.x+=p.drift;
+      if(p.y+p.r<0){p.y=H+p.r;p.x=Math.random()*W;}
+      if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',function(){resize();createParticles(55);},{passive:true});
+  resize(); createParticles(55); draw();
+})();
+
+/* ============================================================
+   THEME SWITCHER (Commit 2)
+   ============================================================ */
+(function initThemeSwitcher() {
+  var btn = document.getElementById('theme-switcher-btn');
+  var icon = document.getElementById('theme-icon');
+  if (!btn) return;
+  var saved = localStorage.getItem('cinevix-theme') || 'dark';
+  if (saved === 'sepia') { document.body.classList.add('theme-sepia'); if(icon) icon.className='fas fa-sun'; }
+  btn.addEventListener('click', function() {
+    var isSepia = document.body.classList.toggle('theme-sepia');
+    localStorage.setItem('cinevix-theme', isSepia ? 'sepia' : 'dark');
+    if(icon) icon.className = isSepia ? 'fas fa-sun' : 'fas fa-moon';
+    btn.style.transform = 'rotate(20deg) scale(0.9)';
+    setTimeout(function(){ btn.style.transform=''; }, 200);
+  });
+})();
+
+/* ============================================================
+   MAGNETIC BUTTONS (Commit 2)
+   ============================================================ */
+(function initMagneticButtons() {
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  var targets = document.querySelectorAll('.btn-amber, .btn-ghost, .nav-cta');
+  targets.forEach(function(btn) {
+    btn.addEventListener('mousemove', function(e) {
+      var rect = btn.getBoundingClientRect();
+      var dx = (e.clientX - (rect.left + rect.width/2)) * 0.28;
+      var dy = (e.clientY - (rect.top + rect.height/2)) * 0.28;
+      btn.style.transform = 'translate('+dx+'px,'+dy+'px)';
+    });
+    btn.addEventListener('mouseleave', function() {
+      btn.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
+      btn.style.transform = '';
+      setTimeout(function(){ btn.style.transition=''; }, 450);
+    });
+  });
+})();
